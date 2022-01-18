@@ -7,12 +7,12 @@ import Auth from "../utils/auth";
 
 function Login() {
 	const [formState, setFormState] = useState({ email: "", password: "" });
-	cpmst[(login_user, { error })] = useMutation(LOGIN_USER);
+	const [loginUser, { error }] = useMutation(LOGIN_USER);
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const mutationResponse = await login_user({
+			const mutationResponse = await loginUser({
 				variables: {
 					email: formState.email,
 					password: formState.password
