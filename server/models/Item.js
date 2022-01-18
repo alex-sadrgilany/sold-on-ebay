@@ -2,7 +2,7 @@ const { Schema } = require("mongoose");
 
 // subdocument schema
 const itemSchema = new Schema({
-	itemName: {
+	name: {
 		type: String,
 		required: [true, "An item name is required!"],
 		trim: true
