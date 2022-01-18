@@ -8,7 +8,7 @@
 	"description": "",
 	"scripts": {
 		"start": "node server.js",
-        "watch": "nodemon"
+		"watch": "nodemon"
 	},
 	"dependencies": {
 		"apollo-server-express": "^3.6.1",
@@ -17,7 +17,8 @@
 		"graphql": "^16.2.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.1.7",
-		"stripe": "^8.197.0"
+		"stripe": "^8.197.0",
+		"validator": "^13.7.0"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.15"
