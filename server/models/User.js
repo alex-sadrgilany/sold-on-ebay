@@ -1,10 +1,19 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 const bcrypt = require("bcrypt");
-import isEmail from "validator/lib/isEmail";
-import isLength from "validator/lib/isLength";
+const validate = require("mongoose-validator");
 
 const itemSchema = require("./Item");
+
+const isEmail = validate({
+    validator: "isEmail",
+    message: "Please enter a valid email address!"
+});
+const isLength = validate({
+    validator: "isLength",
+    arguments: [8],
+    message: "Password must be at least 8 characters!"
+});
 
 const userSchema = new Schema({
 	username: {
@@ -17,16 +26,13 @@ const userSchema = new Schema({
 		type: String,
 		unique: true,
 		required: [true, "An email is required!"],
-		validate: [isEmail, "Please enter a valid email address!"]
+		validate: isEmail
 	},
 	password: {
 		type: String,
 		required: true,
 		minlength: 8,
-		validate: [
-			isLength(password, 8),
-			"Password must be at least 8 characters!"
-		]
+		validate: isLength
 	},
 	savedItems: [itemSchema]
 });

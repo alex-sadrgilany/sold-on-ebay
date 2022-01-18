@@ -15,6 +15,18 @@ const resolvers = {
 				return userData;
 			}
 			throw new AuthenticationError("You must be logged in!");
+		},
+		users: async () => {
+			const usersData = await User.find()
+				.select("-__v -password")
+				.populate("savedItems");
+			return usersData;
+		},
+		user: async (parent, { username }) => {
+			const userData = await User.findOne({ username })
+				.select("-__v -password")
+				.populate("savedItems");
+			return userData;
 		}
 	},
 	Mutation: {
