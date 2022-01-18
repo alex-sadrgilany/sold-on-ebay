@@ -11,9 +11,9 @@ const typeDefs = gql`
 	type Item {
 		itemId: ID
 		name: String
+		price: Float
 		description: String
 		image: String
-		price: Int
 		link: String
 	}
 
@@ -24,8 +24,8 @@ const typeDefs = gql`
 
 	type Query {
 		me: User
-        users: [User]
-        user(username: String!): User
+		users: [User]
+		user(username: String!): User
 	}
 
 	input itemInput {
@@ -33,7 +33,7 @@ const typeDefs = gql`
 		name: String
 		description: String
 		image: String
-		price: Int
+		price: Float
 		link: String
 	}
 
@@ -41,7 +41,7 @@ const typeDefs = gql`
 		login(email: String!, password: String!): Auth
 		addUser(username: String!, email: String!, password: String!): Auth
 		saveItem(itemData: itemInput!): User
-		removeItem(itemId: ID!): User
+		deleteItem(itemId: ID!): User
 	}
 `;
 

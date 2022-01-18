@@ -67,7 +67,7 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You must be logged in!");
 		},
-		removeItem: async (parent, args, context) => {
+		deleteItem: async (parent, args, context) => {
 			if (context.user) {
 				const user = await User.findByIdAndUpdate(
 					{
