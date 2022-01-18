@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 import isEmail from "validator/lib/isEmail";
 import isLength from "validator/lib/isLength";
 
+const itemSchema = require("./Item");
+
 const userSchema = new Schema({
 	username: {
 		type: String,
@@ -25,7 +27,8 @@ const userSchema = new Schema({
 			isLength(password, 8),
 			"Password must be at least 8 characters!"
 		]
-	}
+	},
+	savedItems: [itemSchema]
 });
 
 // set up pre-save middleware to create password
