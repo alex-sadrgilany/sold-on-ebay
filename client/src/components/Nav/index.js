@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Auth from "../../utils/auth";
 
 function Nav() {
@@ -8,10 +9,10 @@ function Nav() {
 			return (
 				<ul>
 					<li>
-						<Link to="/myitems">My Items</Link>
+						<NavLink className={(navData) => navData.isActive ? navActive : ""} to="/myitems">My Items</NavLink>
 					</li>
 					<li>
-						<a href="/" onClick={() => Auth.logout}>
+						<a href="/" onClick={() => Auth.logout()}>
 							Logout
 						</a>
 					</li>
@@ -21,10 +22,10 @@ function Nav() {
 			return (
 				<ul>
 					<li>
-						<Link to="/signup">Signup</Link>
+						<NavLink className={(navData) => navData.isActive ? "navActive" : ""} to="/signup">Signup</NavLink>
 					</li>
 					<li>
-						<Link to="/login">Login</Link>
+						<NavLink className={(navData) => navData.isActive ? "navActive" : ""} to="/login">Login</NavLink>
 					</li>
 				</ul>
 			);

@@ -17,7 +17,7 @@ import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 
 const httpLink = createHttpLink({
-	uri: "/graphql"
+	uri: "http://localhost:3001/graphql",
 });
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("id_token");
@@ -46,7 +46,7 @@ function App() {
 							<Route path="/login" element={<Login />} />
 							<Route path="/signup" element={<Signup />} />
 
-							<Route element={<NoMatch />} />
+							<Route path="*" element={<NoMatch />} />
 						</Routes>
 					</Provider>
 				</div>
