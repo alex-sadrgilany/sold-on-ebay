@@ -18,5 +18,14 @@ module.exports = {
             return res.json(400).json({ message: "Cannot find a user with this id or username!" });
         }
         res.json(foundUser);
+    },
+    async ebayRoute({ query }, res) {
+        const challengeCode = query;
+        const verificationUrl;
+        const verificationToken;
+
+        let response = {};
+
+        
     }
 };

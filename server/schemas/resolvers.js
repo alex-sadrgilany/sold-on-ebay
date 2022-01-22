@@ -84,7 +84,8 @@ const resolvers = {
 				return user;
 			}
 			throw new AuthenticationError("You must be logged in!");
-		}
+		},
+		
 	}
 };
 
