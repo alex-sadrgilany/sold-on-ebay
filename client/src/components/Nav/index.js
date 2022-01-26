@@ -9,7 +9,7 @@ function Nav() {
 			return (
 				<ul>
 					<li>
-						<NavLink className={(navData) => navData.isActive ? navActive : ""} to="/myitems">My Items</NavLink>
+						<NavLink to="/profile">My Profile</NavLink>
 					</li>
 					<li>
 						<a href="/" onClick={() => Auth.logout()}>

@@ -13,7 +13,6 @@
         "seed": "cd server && npm run seed",
         "build": "cd client && npm run build",
         "heroku-postbuild": "cd client && npm install && npm run build"
-
     },
     "devDependencies": {
         "concurrently": "^7.0.0"
