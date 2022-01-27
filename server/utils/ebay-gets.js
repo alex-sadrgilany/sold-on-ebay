@@ -24,6 +24,7 @@ module.exports = {
                     console.log("product not found :(")
                     return module.exports.ebayData();
                 }
+				console.log(response.data);
 				res.json(response.data);
 			})
 			.catch((err) => {
