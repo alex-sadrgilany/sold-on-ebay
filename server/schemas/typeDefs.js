@@ -9,10 +9,9 @@ const typeDefs = gql`
 	}
 
 	type Item {
-		itemId: ID
-		name: String
+		_id: ID
+		title: String
 		price: Float
-		description: String
 		image: String
 		link: String
 	}
@@ -29,9 +28,8 @@ const typeDefs = gql`
 	}
 
 	input itemInput {
-		itemId: String
-		name: String
-		description: String
+		_id: ID
+		title: String
 		image: String
 		price: Float
 		link: String

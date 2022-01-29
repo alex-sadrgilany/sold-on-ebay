@@ -1,22 +1,15 @@
+const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
-// subdocument schema
 const itemSchema = new Schema({
-	itemId: {
+	title: {
 		type: String,
-		required: [true, "An item id is required!"]
-	},
-	name: {
-		type: String,
-		required: [true, "An item name is required!"],
+		required: [true, "An item title is required!"],
 		trim: true
 	},
 	price: {
 		type: Number,
 		required: [true, "An item price is required!"]
-	},
-	description: {
-		type: String
 	},
 	image: {
 		type: String
@@ -26,4 +19,6 @@ const itemSchema = new Schema({
 	}
 });
 
-module.exports = itemSchema;
+const Item = mongoose.model("Item", itemSchema);
+
+module.exports = Item;

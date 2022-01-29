@@ -3,7 +3,7 @@ const { Schema } = require("mongoose");
 const bcrypt = require("bcrypt");
 const validate = require("mongoose-validator");
 
-const itemSchema = require("./Item");
+const SavedItems = require("./SavedItems");
 
 const isEmail = validate({
     validator: "isEmail",
@@ -34,7 +34,7 @@ const userSchema = new Schema({
 		minlength: 8,
 		validate: isLength
 	},
-	savedItems: [itemSchema]
+	savedItems: [SavedItems.schema]
 });
 
 // set up pre-save middleware to create password

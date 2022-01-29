@@ -1,4 +1,4 @@
-import { REMOVE_ITEM } from "./actions";
+import { REMOVE_ITEM, ADD_ITEMS } from "./actions";
 
 const initialState = {
     items: []
@@ -14,6 +14,11 @@ export const reducers = (state = initialState, action) => {
             return {
                 ...state,
                 items: newState
+            };
+        case ADD_ITEMS:
+            return {
+                ...state,
+                items: [...action.items]
             };
         default:
             return state;
