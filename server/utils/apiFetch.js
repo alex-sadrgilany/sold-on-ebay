@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 
 module.exports = {
-	ebayData: function (req, res) {
+	apiFetch: function (req, res) {
 
 		const searchTerm = req.query.search_term;
 
@@ -22,7 +22,7 @@ module.exports = {
 			.then(function(response) {
                 if (!response.data.request_info.success) {
                     console.log("product not found :(")
-                    return module.exports.ebayData();
+                    return module.exports.apiFetch();
                 }
 				console.log(response.data);
 				res.json(response.data);

@@ -19,3 +19,7 @@ code {
 .navActive {
     color: green;
 }
+
+.hide {
+  display: none;
+}

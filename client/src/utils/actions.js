@@ -1,2 +1,4 @@
-export const REMOVE_ITEM = "REMOVE_ITEM";
-export const ADD_ITEMS = "ADD_ITEMS";
+export const FETCH_DATA_START = "FETCH_DATA_START";
+export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
+export const CORRECT_GUESS = "CORRECT_GUESS";

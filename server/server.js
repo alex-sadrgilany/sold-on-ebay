@@ -3,11 +3,10 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const cors = require("cors");
 
-const routes = require("./routes");
 const db = require("./config/connection");
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
-const { ebayData } = require("./utils/ebay-gets");
+const { apiFetch } = require("./utils/apiFetch");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -34,10 +33,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/api/product", (req, res) => {
-	ebayData(req, res);
+	apiFetch(req, res);
 });
-
-app.use(routes);
 
 app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "../client/build/index.html"));

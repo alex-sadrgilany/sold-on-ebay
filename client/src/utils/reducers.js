@@ -1,28 +1,45 @@
-import { REMOVE_ITEM, ADD_ITEMS } from "./actions";
+import {
+	FETCH_DATA_START,
+	FETCH_DATA_FAILURE,
+	FETCH_DATA_SUCCESS,
+	CORRECT_GUESS,
+} from "./actions";
 
-const initialState = {
-    items: []
+import { useReducer } from "react";
+
+export const reducer = (state, action) => {
+	switch (action.type) {
+		case FETCH_DATA_START:
+			return {
+				...state,
+				isFetching: true
+			};
+		case FETCH_DATA_FAILURE:
+			const error = action.payload;
+			alert(
+				`There was an error fetching the data: ${error.message}. Please try again.`
+			);
+			return {
+				...state,
+				isFetching: false
+			};
+		case FETCH_DATA_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				items: action.payload
+			};
+		case CORRECT_GUESS:
+			return {
+				...state,
+				score: state.score + 1,
+				currentItemIndex: state.currentItemIndex + 1
+			};
+		default:
+			return state;
+	}
 };
 
-export const reducers = (state = initialState, action) => {
-    switch (action.type) {
-        case REMOVE_ITEM:
-            let newState = state.items.filter((item) => {
-                return item._id !== action._id;
-            });
-
-            return {
-                ...state,
-                items: newState
-            };
-        case ADD_ITEMS:
-            return {
-                ...state,
-                items: [...action.items]
-            };
-        default:
-            return state;
-    }
-};
-
-export default reducers;
+export function useItemReducer(initialState) {
+	return useReducer(reducer, initialState);
+}

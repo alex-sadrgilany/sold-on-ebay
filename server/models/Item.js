@@ -1,7 +1,11 @@
-const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
+// subdocument schema
 const itemSchema = new Schema({
+	itemId: {
+		type: String,
+		required: [true, "An item id is required!"]
+	},
 	title: {
 		type: String,
 		required: [true, "An item title is required!"],
@@ -19,6 +23,4 @@ const itemSchema = new Schema({
 	}
 });
 
-const Item = mongoose.model("Item", itemSchema);
-
-module.exports = Item;
+module.exports = itemSchema;

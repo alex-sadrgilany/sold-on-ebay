@@ -7,10 +7,12 @@ import {
 	createHttpLink
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { Provider } from "react-redux";
-import createStore from "./store";
+import { StoreProvider } from "./utils/GlobalState";
+import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 
-import Home from "./pages/Home";
+import Welcome from "./components/Welcome";
+import PlayGame from "./components/PlayGame";
+import GameOver from "./components/GameOver";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
@@ -18,7 +20,7 @@ import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 
 const httpLink = createHttpLink({
-	uri: "http://localhost:3001/graphql",
+	uri: "/graphql"
 });
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("id_token");
@@ -33,24 +35,31 @@ const client = new ApolloClient({
 	link: authLink.concat(httpLink),
 	cache: new InMemoryCache()
 });
-const store = createStore;
 
 function App() {
 	return (
 		<ApolloProvider client={client}>
 			<Router>
 				<div>
-					<Provider store={store}>
-						<Nav />
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/signup" element={<Signup />} />
-							<Route path="/profile" element={<Profile />} />
+					<StoreProvider>
+						<ThemeProvider>
+							<CSSReset />
+							<Nav />
+							<Routes>
+								<Route path="/" element={<Welcome />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/signup" element={<Signup />} />
+								<Route path="/profile" element={<Profile />} />
+								<Route path="/play" element={<PlayGame />} />
+								<Route
+									path="/gameover"
+									element={<GameOver />}
+								/>
 
-							<Route path="*" element={<NoMatch />} />
-						</Routes>
-					</Provider>
+								<Route path="*" element={<NoMatch />} />
+							</Routes>
+						</ThemeProvider>
+					</StoreProvider>
 				</div>
 			</Router>
 		</ApolloProvider>

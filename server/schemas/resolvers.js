@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Item } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -19,13 +19,19 @@ const resolvers = {
 		users: async () => {
 			const usersData = await User.find()
 				.select("-__v -password")
-				.populate("savedItems");
+				.populate({
+					path: "savedItems.items",
+					populate: "_id title price image link"
+				});
 			return usersData;
 		},
 		user: async (parent, { username }) => {
 			const userData = await User.findOne({ username })
 				.select("-__v -password")
-				.populate("savedItems");
+				.populate({
+					path: "savedItems.items",
+					populate: "_id title price image link"
+				});
 			return userData;
 		}
 	},
