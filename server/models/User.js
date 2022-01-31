@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const validate = require("mongoose-validator");
 
 const itemSchema = require("./Item");
+const Order = require("./Order");
 
 const isEmail = validate({
     validator: "isEmail",
@@ -38,7 +39,8 @@ const userSchema = new Schema({
 		type: Number,
 		default: 0
 	},
-	savedItems: [itemSchema]
+	savedItems: [itemSchema],
+	orders: [Order.schema]
 });
 
 // set up pre-save middleware to create password

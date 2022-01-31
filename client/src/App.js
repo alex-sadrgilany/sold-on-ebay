@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
+import Success from "./pages/Success";
 import Nav from "./components/Nav";
 
 const httpLink = createHttpLink({
@@ -56,6 +57,7 @@ function App() {
 									path="/gameover"
 									element={<GameOver />}
 								/>
+								<Route path="/success" element={<Success />} />
 
 								<Route path="*" element={<NoMatch />} />
 							</Routes>

@@ -70,7 +70,7 @@ function ImportDataButton() {
 				type: FETCH_DATA_SUCCESS,
 				payload: shuffle(items)
 			});
-			
+
 			setSearchInput("");
 			navigate("/play");
 			// ebayApiCall(searchInput)
@@ -103,7 +103,10 @@ function ImportDataButton() {
 			// 		});
 			// 	});
 		} catch (err) {
-			console.error(err);
+			dispatch({
+				type: FETCH_DATA_FAILURE,
+				payload: error
+			});
 		}
 	};
 

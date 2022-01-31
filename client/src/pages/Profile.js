@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { QUERY_ME } from "../utils/queries";
 import { DELETE_ITEM } from "../utils/mutations";
+import Cart from "../components/Cart";
 import { Box, Heading, Divider, Link, Image, Button } from "@chakra-ui/core";
+import { ADD_TO_CART, EMPTY_CART } from "../utils/actions";
+import { useStoreContext } from "../utils/GlobalState";
 
 function Profile() {
+	const [state, dispatch] = useStoreContext();
 	const { loading, data } = useQuery(QUERY_ME);
 	const [deleteItem, { error }] = useMutation(DELETE_ITEM);
 	const { username, highScore, savedItems } = data?.me || {};
+	const [donationAmount, setDonationAmount] = useState(0);
 
 	// function to handle deleting item from User
 	const handleDeleteItem = async (id) => {
@@ -20,13 +25,26 @@ function Profile() {
 
 		try {
 			const { data } = await deleteItem({
-				variables: { itemId: id}
+				variables: { itemId: id }
 			});
 
 			// remove itemId from localstorage
 		} catch (err) {
 			console.error(err);
 		}
+	};
+
+	const addToCart = () => {
+		dispatch({
+			type: ADD_TO_CART,
+			payload: Number(donationAmount)
+		});
+	};
+
+	const clearCart = () => {
+		dispatch({
+			type: EMPTY_CART
+		});
 	};
 
 	if (loading) {
@@ -57,11 +75,18 @@ function Profile() {
 							<Heading as="h3" size="lg">
 								${decodeURIComponent(item.price.toFixed(2))}
 							</Heading>
-							<Link href={decodeURIComponent(item.link)} isExternal>
+							<Link
+								href={decodeURIComponent(item.link)}
+								isExternal
+							>
 								View on eBay!
 							</Link>
 							{Auth.loggedIn() && (
-								<Button onClick={() => handleDeleteItem(item.itemId)}>
+								<Button
+									onClick={() =>
+										handleDeleteItem(item.itemId)
+									}
+								>
 									Delete this Item!
 								</Button>
 							)}
@@ -69,6 +94,28 @@ function Profile() {
 						</Box>
 					);
 				})}
+			</div>
+			<div>
+				<table>
+					<tbody>
+						<tr>
+						<td>Donation Amount:</td>
+						<td>
+							<input
+								type="number"
+								name="donation-amount"
+								value={donationAmount}
+								onChange={(e) =>
+									setDonationAmount(e.target.value)
+								}
+							/>
+						</td>
+						</tr>
+					</tbody>
+				</table>
+				<button onClick={addToCart}>Add to Cart</button>
+				<button onClick={clearCart}>Clear Cart</button>
+				<Cart />
 			</div>
 		</div>
 	);

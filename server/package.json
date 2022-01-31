@@ -1,6 +1,7 @@
 {
 	"name": "sold-on-ebay-server",
 	"version": "1.0.0",
+	"proxy": "http://localhost:3001/",
 	"main": "server.js",
 	"keywords": [],
 	"author": "",
@@ -23,7 +24,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.1.7",
 		"mongoose-validator": "^2.1.0",
-		"stripe": "^8.197.0"
+		"stripe": "^8.201.0"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.15"

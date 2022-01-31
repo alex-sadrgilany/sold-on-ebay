@@ -10,7 +10,8 @@ const StoreProvider = ({ value = [], ...props}) => {
             items: [],
             score: 0,
             currentItemIndex: 0,
-            isFetching: false
+            isFetching: false,
+            cart: 0
         }
     );
     console.log(state);

@@ -17,6 +17,16 @@ const typeDefs = gql`
 		link: String
 	}
 
+	type Order {
+		_id: ID
+		donationDate: String
+		donationAmount: Int
+	}
+
+	type Checkout {
+		session: ID
+	}
+
 	type Auth {
 		token: ID!
 		user: User
@@ -26,6 +36,8 @@ const typeDefs = gql`
 		me: User
 		users: [User]
 		user(username: String!): User
+		order(_id: ID!): Order
+		checkout(amount: Int!): Checkout
 	}
 
 	input itemInput {
@@ -39,12 +51,11 @@ const typeDefs = gql`
 	type Mutation {
 		login(email: String!, password: String!): Auth
 		addUser(username: String!, email: String!, password: String!): Auth
+		addOrder(amount: Int!): Order
 		saveItem(itemData: itemInput!): User
 		deleteItem(itemId: String!): User
 		saveScore(userScore: Int!): User
 	}
-
-	
 `;
 
 module.exports = typeDefs;

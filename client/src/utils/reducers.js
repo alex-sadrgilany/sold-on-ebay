@@ -3,6 +3,8 @@ import {
 	FETCH_DATA_FAILURE,
 	FETCH_DATA_SUCCESS,
 	CORRECT_GUESS,
+	ADD_TO_CART,
+	EMPTY_CART,
 } from "./actions";
 
 import { useReducer } from "react";
@@ -35,6 +37,16 @@ export const reducer = (state, action) => {
 				score: state.score + 1,
 				currentItemIndex: state.currentItemIndex + 1
 			};
+		case ADD_TO_CART:
+			return {
+				...state,
+				cart: action.payload
+			}
+		case EMPTY_CART:
+			return {
+				...state,
+				cart: 0
+			}
 		default:
 			return state;
 	}

@@ -1,6 +1,8 @@
-const { User, Item } = require("../models");
+const { User, Order } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const resolvers = {
 	Query: {
@@ -10,7 +12,8 @@ const resolvers = {
 					_id: context.user._id
 				})
 					.select("-__v -password")
-					.populate("savedItems");
+					.populate("savedItems")
+					.populate("orders");
 
 				return userData;
 			}
@@ -19,16 +22,61 @@ const resolvers = {
 		users: async () => {
 			const usersData = await User.find()
 				.select("-__v -password")
-				.populate("savedItems");
+				.populate("savedItems")
+				.populate("orders");
 
 			return usersData;
 		},
 		user: async (parent, { username }) => {
 			const userData = await User.findOne({ username })
 				.select("-__v -password")
-				.populate("savedItems");
+				.populate("savedItems")
+				.populate("orders");
 
 			return userData;
+		},
+		order: async (parent, { _id }, context) => {
+			if (context.user) {
+				const user = await User.findById(context.user._id).populate(
+					"orders"
+				);
+
+				return user.orders.id(_id);
+			}
+			throw new AuthenticationError("You must be logged in!");
+		},
+		checkout: async (parent, args, context) => {
+			const url = new URL(context.headers.referer).origin;
+			const order = new Order({ donationAmount: args.amount });
+			const line_items = [];
+
+			const { donationAmount } = order;
+
+			const product = await stripe.products.create({
+				name: "Donation",
+				description: "A small donation for enjoying the game"
+			});
+
+			const price = await stripe.prices.create({
+				product: product.id,
+				unit_amount: donationAmount * 100,
+				currency: "usd"
+			});
+
+			line_items.push({
+				price: price.id,
+				quantity: 1
+			});
+
+			const session = await stripe.checkout.sessions.create({
+				payment_method_types: ["card"],
+				line_items,
+				mode: "payment",
+				success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+				cancel_url: `${url}/`
+			});
+
+			return { session: session.id };
 		}
 	},
 	Mutation: {
@@ -103,6 +151,18 @@ const resolvers = {
 					}
 				);
 				return user;
+			}
+			throw new AuthenticationError("You must be logged in!");
+		},
+		addOrder: async (parent, { amount }, context) => {
+			if (context.user) {
+				const order = new Order(amount);
+
+				await User.findByIdAndUpdate(context.user._id, {
+					$push: { orders: order }
+				});
+
+				return order;
 			}
 			throw new AuthenticationError("You must be logged in!");
 		}
