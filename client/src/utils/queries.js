@@ -8,9 +8,8 @@ export const QUERY_ME = gql`
             email
             savedItems {
                 itemId
-                name
+                title
                 price
-                description
                 image
                 link
             }

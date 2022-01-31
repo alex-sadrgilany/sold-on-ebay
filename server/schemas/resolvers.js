@@ -19,19 +19,15 @@ const resolvers = {
 		users: async () => {
 			const usersData = await User.find()
 				.select("-__v -password")
-				.populate({
-					path: "savedItems.items",
-					populate: "_id title price image link"
-				});
+				.populate("savedItems");
+
 			return usersData;
 		},
 		user: async (parent, { username }) => {
 			const userData = await User.findOne({ username })
 				.select("-__v -password")
-				.populate({
-					path: "savedItems.items",
-					populate: "_id title price image link"
-				});
+				.populate("savedItems");
+
 			return userData;
 		}
 	},

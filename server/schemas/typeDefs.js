@@ -5,11 +5,12 @@ const typeDefs = gql`
 		_id: ID
 		username: String
 		email: String
+		highScore: Int
 		savedItems: [Item]
 	}
 
 	type Item {
-		_id: ID
+		itemId: ID!
 		title: String
 		price: Float
 		image: String
@@ -25,11 +26,10 @@ const typeDefs = gql`
 		me: User
 		users: [User]
 		user(username: String!): User
-		items: [Item]
 	}
 
 	input itemInput {
-		_id: ID
+		itemId: String
 		title: String
 		image: String
 		price: Float

@@ -20,6 +20,7 @@ import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 
 const httpLink = createHttpLink({
+	useGETForQueries: true,
 	uri: "/graphql"
 });
 const authLink = setContext((_, { headers }) => {

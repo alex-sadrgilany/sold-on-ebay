@@ -24,7 +24,6 @@ module.exports = {
                     console.log("product not found :(")
                     return module.exports.apiFetch();
                 }
-				console.log(response.data);
 				res.json(response.data);
 			})
 			.catch((err) => {

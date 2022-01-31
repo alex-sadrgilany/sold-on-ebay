@@ -31,9 +31,8 @@ export const SAVE_ITEM = gql`
             username
             savedItems {
                 itemId
-                name
+                title
                 price
-                description
                 image
                 link
             }
@@ -48,9 +47,8 @@ export const DELETE_ITEM = gql`
             username
             savedItems {
                 itemId
-                name
+                title
                 price
-                description
                 image
                 link
             }

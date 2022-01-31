@@ -27,7 +27,7 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 			</Heading>
 			<Divider borderColor="black.600" />
 			<Heading as="h3" size="lg" className="hide">
-				${decodeURIComponent(price)}
+				${decodeURIComponent(price.toFixed(2))}
 			</Heading>
 			<Link href={decodeURIComponent(link)} isExternal>
 				View on eBay!

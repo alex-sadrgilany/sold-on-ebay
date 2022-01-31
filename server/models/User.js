@@ -34,6 +34,9 @@ const userSchema = new Schema({
 		minlength: 8,
 		validate: isLength
 	},
+	highScore: {
+		type: Number
+	},
 	savedItems: [itemSchema]
 });
 
