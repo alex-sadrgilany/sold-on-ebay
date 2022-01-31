@@ -40,7 +40,8 @@ const typeDefs = gql`
 		login(email: String!, password: String!): Auth
 		addUser(username: String!, email: String!, password: String!): Auth
 		saveItem(itemData: itemInput!): User
-		deleteItem(itemId: ID!): User
+		deleteItem(itemId: String!): User
+		saveScore(userScore: Int!): User
 	}
 
 	

@@ -12,10 +12,25 @@ function PlayGame() {
     const navigate = useNavigate();
 	const [state, dispatch] = useStoreContext();
 
-	const { currentItemIndex } = state;
+	const { items, currentItemIndex } = state;
 
-	const leftObj = state.items[currentItemIndex];
-	const rightObj = state.items[currentItemIndex + 1];
+	const leftObj = items[currentItemIndex];
+	const rightObj = items[currentItemIndex + 1];
+
+	const redirectHome = () => {
+		if (!rightObj && !leftObj) {
+			window.location.assign("/");
+		}
+	};
+
+	// const noMoreItems = () => {
+	// 	if (rightObj === "the end") {
+	// 		alert("wow you answered every single one correctly!!");
+	// 		gameOver();
+	// 	}
+	// }
+
+	useEffect(redirectHome, []);
 
 	console.log("left item", leftObj);
 	console.log("right item", rightObj);

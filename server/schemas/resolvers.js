@@ -69,14 +69,14 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You must be logged in!");
 		},
-		deleteItem: async (parent, args, context) => {
+		deleteItem: async (parent, { itemId }, context) => {
 			if (context.user) {
 				const user = await User.findByIdAndUpdate(
 					{
 						_id: context.user._id
 					},
 					{
-						$pull: { savedItems: args.itemId }
+						$pull: { savedItems: { itemId } }
 					},
 					{
 						new: true,
@@ -87,7 +87,25 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You must be logged in!");
 		},
-		
+		saveScore: async (parent, args, context) => {
+			if (context.user) {
+				const user = await User.findByIdAndUpdate(
+					{
+						_id: context.user._id
+					},
+					{
+						$set: { highScore: args.userScore }
+					},
+					{
+						new: true,
+						runValidators: true,
+						overwrite: true
+					}
+				);
+				return user;
+			}
+			throw new AuthenticationError("You must be logged in!");
+		}
 	}
 };
 

@@ -41,7 +41,7 @@ export const SAVE_ITEM = gql`
 `;
 
 export const DELETE_ITEM = gql`
-    mutation deleteItem($itemId: ID!) {
+    mutation deleteItem($itemId: String!) {
         deleteItem(itemId: $itemId) {
             _id
             username
@@ -52,6 +52,16 @@ export const DELETE_ITEM = gql`
                 image
                 link
             }
+        }
+    }
+`;
+
+export const SAVE_SCORE = gql`
+    mutation saveScore($userScore: Int!) {
+        saveScore(userScore: $userScore) {
+            _id
+            username
+            highScore
         }
     }
 `;
