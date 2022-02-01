@@ -23,14 +23,15 @@ function PlayGame() {
 		}
 	};
 
-	// const noMoreItems = () => {
-	// 	if (rightObj === "the end") {
-	// 		alert("wow you answered every single one correctly!!");
-	// 		gameOver();
-	// 	}
-	// }
+	const noMoreItems = () => {
+		if (currentItemIndex === items.length) {
+			alert("wow you answered every single one correctly!!");
+			gameOver();
+		}
+	}
 
 	useEffect(redirectHome, []);
+	useEffect(noMoreItems, [currentItemIndex]);
 
 	console.log("left item", leftObj);
 	console.log("right item", rightObj);

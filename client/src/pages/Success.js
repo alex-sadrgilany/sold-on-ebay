@@ -11,16 +11,15 @@ function Success() {
 
 	useEffect(() => {
 		async function saveOrder() {
-			addOrder(cart);
-
-			setTimeout(() => {
-				window.location.assign("/");
-			}, 3000);
+			addOrder({
+				variables: { amount: Number(cart)}
+			});		
 		}
 
 		saveOrder();
 	}, [addOrder]);
 
+	
 	return (
 		<div>
 				<h1>Success!</h1>

@@ -7,6 +7,7 @@ const typeDefs = gql`
 		email: String
 		highScore: Int
 		savedItems: [Item]
+		orders: [Order]
 	}
 
 	type Item {
@@ -36,7 +37,6 @@ const typeDefs = gql`
 		me: User
 		users: [User]
 		user(username: String!): User
-		order(_id: ID!): Order
 		checkout(amount: Int!): Checkout
 	}
 
@@ -48,10 +48,15 @@ const typeDefs = gql`
 		link: String
 	}
 
+	input orderInput {
+		donationDate: String
+		donationAmount: Int
+	}
+
 	type Mutation {
 		login(email: String!, password: String!): Auth
 		addUser(username: String!, email: String!, password: String!): Auth
-		addOrder(amount: Int!): Order
+		addOrder(orderData: orderInput!): User
 		saveItem(itemData: itemInput!): User
 		deleteItem(itemId: String!): User
 		saveScore(userScore: Int!): User

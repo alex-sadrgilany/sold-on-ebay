@@ -1,4 +1,4 @@
-const { User, Order } = require("../models");
+const { User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 require("dotenv").config();
@@ -34,16 +34,6 @@ const resolvers = {
 				.populate("orders");
 
 			return userData;
-		},
-		order: async (parent, { _id }, context) => {
-			if (context.user) {
-				const user = await User.findById(context.user._id).populate(
-					"orders"
-				);
-
-				return user.orders.id(_id);
-			}
-			throw new AuthenticationError("You must be logged in!");
 		},
 		checkout: async (parent, args, context) => {
 			const url = new URL(context.headers.referer).origin;
@@ -154,15 +144,21 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You must be logged in!");
 		},
-		addOrder: async (parent, { amount }, context) => {
+		addOrder: async (parent, args, context) => {
 			if (context.user) {
-				const order = new Order(amount);
-
-				await User.findByIdAndUpdate(context.user._id, {
-					$push: { orders: order }
-				});
-
-				return order;
+				const user = await User.findByIdAndUpdate(
+					{
+						_id: context.user._id
+					},
+					{
+						$addToSet: { orders: args.orderData }
+					},
+					{
+						new: true,
+						runValidators: true
+					}
+				);
+				return user;
 			}
 			throw new AuthenticationError("You must be logged in!");
 		}

@@ -12,7 +12,7 @@ function Profile() {
 	const [state, dispatch] = useStoreContext();
 	const { loading, data } = useQuery(QUERY_ME);
 	const [deleteItem, { error }] = useMutation(DELETE_ITEM);
-	const { username, highScore, savedItems } = data?.me || {};
+	const { username, highScore, savedItems, orders } = data?.me || {};
 	const [donationAmount, setDonationAmount] = useState(0);
 
 	// function to handle deleting item from User
@@ -116,6 +116,21 @@ function Profile() {
 				<button onClick={addToCart}>Add to Cart</button>
 				<button onClick={clearCart}>Clear Cart</button>
 				<Cart />
+			</div>
+			<div>
+				<h2>
+					Donation History for {username}
+				</h2>
+				{orders ? orders.map((order) => {
+					<div key={order._id}>
+						<h3>
+							{new Date(parseInt(order.donationDate)).toLocaleDateString()}
+						</h3>
+						<h3>
+							Donation Amount: {order.donationAmount}
+						</h3>
+					</div>
+				}) : null}
 			</div>
 		</div>
 	);
