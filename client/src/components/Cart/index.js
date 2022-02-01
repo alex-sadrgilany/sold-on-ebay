@@ -5,12 +5,14 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { QUERY_CHECKOUT } from "../../utils/queries";
 
 import { loadStripe } from "@stripe/stripe-js";
+import { ADD_TO_CART } from "../../utils/actions";
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const Cart = () => {
 	const [state, dispatch] = useStoreContext();
 	const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 	const { cart } = state;
+	
 	useEffect(() => {
 		if (data) {
 			stripePromise.then((res) => {
@@ -20,10 +22,9 @@ const Cart = () => {
 	}, [data]);
 
 	function submitCheckout() {
-		const donations = cart;
-
+		console.log(cart)
 		getCheckout({
-			variables: { amount: donations }
+			variables: { amount: cart }
 		});
 	}
 

@@ -69,8 +69,12 @@ export const SAVE_SCORE = gql`
 export const ADD_ORDER = gql`
     mutation addOrder($amount: Int!) {
         addOrder(amount: $amount) {
-            donationDate
-            donationAmount
+            username
+            orders {
+                _id
+                donationAmount
+                donationDate
+            }
         }
     }
 `;

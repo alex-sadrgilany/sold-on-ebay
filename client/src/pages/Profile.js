@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { QUERY_ME } from "../utils/queries";
@@ -8,6 +8,9 @@ import { Box, Heading, Divider, Link, Image, Button } from "@chakra-ui/core";
 import { ADD_TO_CART, EMPTY_CART } from "../utils/actions";
 import { useStoreContext } from "../utils/GlobalState";
 
+import { idbPromise } from "../utils/helpers";
+
+
 function Profile() {
 	const [state, dispatch] = useStoreContext();
 	const { loading, data } = useQuery(QUERY_ME);
@@ -15,6 +18,8 @@ function Profile() {
 	const { username, highScore, savedItems, orders } = data?.me || {};
 	const [donationAmount, setDonationAmount] = useState(0);
 
+	console.log(orders);
+	const { cart } = state;
 	// function to handle deleting item from User
 	const handleDeleteItem = async (id) => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -34,14 +39,29 @@ function Profile() {
 		}
 	};
 
+	const loadOrders = () => {
+		if (data) {
+			return 
+		}
+	}
+
+	useEffect(() => {
+		if (data) {
+
+		}
+	})
+
 	const addToCart = () => {
 		dispatch({
 			type: ADD_TO_CART,
-			payload: Number(donationAmount)
+			payload: parseInt(donationAmount)
 		});
+
+		idbPromise("cart", "put", donationAmount)
 	};
 
 	const clearCart = () => {
+		console.log("cart is being cleared");
 		dispatch({
 			type: EMPTY_CART
 		});
@@ -121,16 +141,13 @@ function Profile() {
 				<h2>
 					Donation History for {username}
 				</h2>
-				{orders ? orders.map((order) => {
-					<div key={order._id}>
-						<h3>
-							{new Date(parseInt(order.donationDate)).toLocaleDateString()}
-						</h3>
-						<h3>
-							Donation Amount: {order.donationAmount}
-						</h3>
-					</div>
-				}) : null}
+				{orders.map((order) => {
+					return (
+						<div key={order._id}>
+							<h3>You donated {order.donationAmount} on {new Date(parseInt(order.donationDate)).toLocaleDateString()}</h3>
+						</div>
+					)
+				})}
 			</div>
 		</div>
 	);

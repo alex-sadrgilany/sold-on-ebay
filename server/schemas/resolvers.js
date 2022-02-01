@@ -37,10 +37,8 @@ const resolvers = {
 		},
 		checkout: async (parent, args, context) => {
 			const url = new URL(context.headers.referer).origin;
-			const order = new Order({ donationAmount: args.amount });
+			const donation = args.amount
 			const line_items = [];
-
-			const { donationAmount } = order;
 
 			const product = await stripe.products.create({
 				name: "Donation",
@@ -49,7 +47,7 @@ const resolvers = {
 
 			const price = await stripe.prices.create({
 				product: product.id,
-				unit_amount: donationAmount * 100,
+				unit_amount: donation * 100,
 				currency: "usd"
 			});
 
@@ -144,14 +142,14 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You must be logged in!");
 		},
-		addOrder: async (parent, args, context) => {
+		addOrder: async (parent, { amount }, context) => {
 			if (context.user) {
 				const user = await User.findByIdAndUpdate(
 					{
 						_id: context.user._id
 					},
 					{
-						$addToSet: { orders: args.orderData }
+						$push: { orders: { donationAmount: amount } }
 					},
 					{
 						new: true,

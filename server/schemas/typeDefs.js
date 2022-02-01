@@ -48,15 +48,10 @@ const typeDefs = gql`
 		link: String
 	}
 
-	input orderInput {
-		donationDate: String
-		donationAmount: Int
-	}
-
 	type Mutation {
 		login(email: String!, password: String!): Auth
 		addUser(username: String!, email: String!, password: String!): Auth
-		addOrder(orderData: orderInput!): User
+		addOrder(amount: Int!): User
 		saveItem(itemData: itemInput!): User
 		deleteItem(itemId: String!): User
 		saveScore(userScore: Int!): User
