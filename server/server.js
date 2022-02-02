@@ -36,9 +36,9 @@ app.get("/api/product", (req, res) => {
 	apiFetch(req, res);
 });
 
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+// 	res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
 db.once("open", () => {
 	app.listen(PORT, () => {

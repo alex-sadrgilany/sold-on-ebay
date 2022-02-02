@@ -13,8 +13,8 @@ function Score() {
 			padding=".5rem"
 			margin="1rem"
 			position="absolute"
-			top="110px"
-			left="46.5%"
+			bottom="0px"
+			left="46.3%"
 			minWidth="6rem"
 			bgColor={"primary.yellow"}
 			textAlign={"center"}

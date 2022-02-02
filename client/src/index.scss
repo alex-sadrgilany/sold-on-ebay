@@ -49,7 +49,7 @@ code {
 	left: 50%;
 	transform: translate(-50%, -50%);
   color: #86b817;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: -3px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .price-overlay .number-animate {
@@ -66,4 +66,16 @@ code {
 
 .donation-amount-hover:hover {
 	opacity: 1;
+}
+
+.vs-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+}
+
+.item-title {
+	font-size: 34px;
 }

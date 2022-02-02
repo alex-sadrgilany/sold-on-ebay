@@ -25,6 +25,9 @@ import {
 	Container,
 	Flex,
 	Divider,
+	Center,
+	Circle,
+	Square,
 	Box
 } from "@chakra-ui/react";
 
@@ -53,7 +56,7 @@ function PlayGame() {
 	};
 
 	useEffect(redirectHome, [leftObj, rightObj]);
-	useEffect(noMoreItems, [currentItemIndex, gameOver, items.length]);
+	useEffect(noMoreItems, [currentItemIndex, items.length]);
 
 	const {
 		itemId: leftItemId,
@@ -155,7 +158,7 @@ function PlayGame() {
 
 	console.log("right", rightPrice);
 	return (
-		<SimpleGrid columns={2} spacing={5}>
+		<SimpleGrid columns={2} spacing={5} position={"relative"}>
 			<GridItem colSpan={1}>
 				<Box bg="white">
 					<LeftItem
@@ -167,6 +170,9 @@ function PlayGame() {
 					/>
 				</Box>
 			</GridItem>
+			<Circle size="100px" bg="primary.blue" color="white" className="vs-overlay">
+				VS.
+			</Circle>
 			<GridItem colSpan={1}>
 				<Box bg="white" colSpan={1}>
 					<RightItem

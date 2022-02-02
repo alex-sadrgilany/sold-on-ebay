@@ -16,9 +16,9 @@ import {
 function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 	const [toggleHide, setToggleHide] = useState(true);
 	return (
-		<VStack>
-			<Heading>"{title}"</Heading>
-			<Box className="text-overlay-box" w="full" h="750px">
+		<VStack w="full" h="750px">
+			<Heading maxH="90px">"{title}"</Heading>
+			<Box className="text-overlay-box" boxSize="600px">
 				<Image src={image} w="100%" h="100%" />
 				<Text 
 					className={`price-overlay ${toggleHide ? "hide" : ""}`}
@@ -30,6 +30,7 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 			<SimpleGrid columns={1}>
 				<Button
 					colSpan={1}
+					w="full"
 					variant="danger"
 					onClick={() => {
 						setToggleHide(false);
@@ -43,6 +44,7 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 				</Button>
 				<Button
 					colSpan={1}
+					w="full"
 					variant="danger"
 					onClick={() => {
 						setToggleHide(false);

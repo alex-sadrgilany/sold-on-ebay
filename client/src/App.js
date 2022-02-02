@@ -48,40 +48,18 @@ function App() {
 				<StoreProvider>
 					<ChakraProvider theme={customTheme}>
 						<Nav />
-						<Container maxW="full" p={0} centerContent>
-							<Flex py={20}>
-								<Routes>
-									<Route path="/" element={<Welcome />} />
-									<Route path="/login" element={<Login />} />
-									<Route
-										path="/signup"
-										element={<Signup />}
-									/>
-									<Route
-										path="/profile"
-										element={<Profile />}
-									/>
-									<Route
-										path="/play"
-										element={<PlayGame />}
-									/>
-									<Route
-										path="/gameover"
-										element={<GameOver />}
-									/>
-									<Route
-										path="/success"
-										element={<Success />}
-									/>
-									<Route
-										path="/donation"
-										element={<Donation />}
-									/>
+						<Routes>
+							<Route path="/" element={<Welcome />} />
+							<Route path="/login" element={<Login />} />
+							<Route path="/signup" element={<Signup />} />
+							<Route path="/profile" element={<Profile />} />
+							<Route path="/play" element={<PlayGame />} />
+							<Route path="/gameover" element={<GameOver />} />
+							<Route path="/success" element={<Success />} />
+							<Route path="/donation" element={<Donation />} />
 
-									<Route path="*" element={<NoMatch />} />
-								</Routes>
-							</Flex>
-						</Container>
+							<Route path="*" element={<NoMatch />} />
+						</Routes>
 					</ChakraProvider>
 				</StoreProvider>
 			</Router>

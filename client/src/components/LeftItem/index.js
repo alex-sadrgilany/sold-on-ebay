@@ -45,39 +45,9 @@ function LeftItem({ itemId, image, title, price, link }) {
 	};
 
 	return (
-		// <Box
-		// 	rounded="lg"
-		// 	textAlign="center"
-		// 	borderWidth="2px"
-		// 	background="white"
-		// 	padding="2rem"
-		// 	width="40%"
-		// 	key={decodeURIComponent(itemId)}
-		// >
-		// 	<Image src={decodeURIComponent(image)} />
-		// 	<Heading as="h2" size="xl">
-		// 		{decodeURIComponent(title)}
-		// 	</Heading>
-		// 	<Divider borderColor="black.600" />
-		// 	<Heading as="h3" size="lg">
-		// 		${decodeURIComponent(price.toFixed(2))}
-		// 	</Heading>
-		// <Link href={decodeURIComponent(link)} isExternal>
-		// 	View on eBay!
-		// </Link>
-		// {Auth.loggedIn() && (
-		// 	<Button
-		// 		onClick={() => handleSaveItem(itemId)}
-		// 	>
-		// 		Save this Item!
-		// 	</Button>
-		// )}
-		// {error && <div>Save Item failed =/</div>}
-		// </Box>
-
-		<VStack>
-			<Heading>"{title}"</Heading>
-			<Box className="text-overlay-box" w="full" h="750px">
+		<VStack w="full" h="750px">
+			<Heading maxH="90px" className="item-title">"{title}"</Heading>
+			<Box className="text-overlay-box" boxSize="600px">
 				<Image src={image} w="100%" h="100%" />
 				<Text className="price-overlay">${price.toFixed(2)}</Text>
 			</Box>
