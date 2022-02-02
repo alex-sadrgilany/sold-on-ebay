@@ -73,39 +73,10 @@ function ImportDataButton() {
 
 			setSearchInput("");
 			navigate("/play");
-			// ebayApiCall(searchInput)
-			// 	.then((response) => {
-			// 		const relevantData = response.data.search_results;
-			// 		console.log(relevantData);
-			// 		data.push(relevantData);
-
-			// 		const items = data.map((result) => ({
-			// 			itemId: result.epid,
-			// 			title: result.title,
-			// 			image: result.image,
-			// 			link: result.link,
-			// 			price:
-			// 				result.price.value +
-			// 				(result.shipping_cost ? result.shipping_cost : 0)
-			// 		}));
-
-			// 		dispatch({
-			// 			type: FETCH_DATA_SUCCESS,
-			// 			payload: shuffle(items)
-			// 		});
-
-			// 		navigate("/play");
-			// 	})
-			// 	.catch((error) => {
-			// 		dispatch({
-			// 			type: FETCH_DATA_FAILURE,
-			// 			payload: error
-			// 		});
-			// 	});
 		} catch (err) {
 			dispatch({
 				type: FETCH_DATA_FAILURE,
-				payload: error
+				payload: err
 			});
 		}
 	};
@@ -119,7 +90,9 @@ function ImportDataButton() {
 				onChange={(e) => setSearchInput(e.target.value)}
 				placeholder="Pick your category"
 			/>
-			<Button type="submit" variant={"primary"}>Submit!</Button>
+			<Button type="submit" variant={"primary"}>
+				Submit!
+			</Button>
 		</form>
 	);
 
