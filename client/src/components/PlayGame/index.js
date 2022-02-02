@@ -130,7 +130,7 @@ function PlayGame() {
 
 				setTimeout(() => {
 					gameOver();
-				}, 2000);
+				}, 2600);
 			}
 		} else {
 			if (rightPrice < leftPrice) {
@@ -148,7 +148,7 @@ function PlayGame() {
 
 				setTimeout(() => {
 					gameOver();
-				}, 2000);
+				}, 2600);
 			}
 		}
 	};
