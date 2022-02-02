@@ -1,7 +1,7 @@
+require("dotenv").config();
 const { User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const resolvers = {
