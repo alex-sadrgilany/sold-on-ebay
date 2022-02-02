@@ -10,7 +10,7 @@ import {
 
 import { ebayApiCall } from "../../utils/API";
 
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button, Spinner, Input, GridItem, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
 function ImportDataButton() {
 	const navigate = useNavigate();
@@ -83,18 +83,26 @@ function ImportDataButton() {
 		}
 	};
 
+	const colSpan = useBreakpointValue({ base: 2, md: 1 });
+
 	const clickToStart = () => (
 		<form onSubmit={loadData}>
-			<input
-				type="text"
-				name="searchInput"
-				value={searchInput}
-				onChange={(e) => setSearchInput(e.target.value)}
-				placeholder="Pick your category"
-			/>
-			<Button type="submit" variant={"primary"}>
-				Submit!
-			</Button>
+			<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
+				<GridItem colSpan={colSpan}>
+					<Input
+						type="text"
+						name="searchInput"
+						value={searchInput}
+						onChange={(e) => setSearchInput(e.target.value)}
+						placeholder="Search your category"
+					/>
+				</GridItem>
+				<GridItem colSpan={colSpan}>
+					<Button type="submit" variant={"primary"} w="full">
+						Submit!
+					</Button>
+				</GridItem>
+			</SimpleGrid>
 		</form>
 	);
 

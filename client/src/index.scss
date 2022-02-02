@@ -1,5 +1,6 @@
-body, html {
-	height: 100%
+body,
+html {
+	height: 100%;
 }
 
 body {
@@ -33,11 +34,11 @@ code {
 }
 
 .red-background {
-  background: #e53238;
+	background: #e53238;
 }
 
 .green-background {
-  background: #86b817;
+	background: #86b817;
 }
 
 .text-overlay-box {
@@ -47,26 +48,25 @@ code {
 }
 
 .price-overlay {
-  font-size: 160px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-  color: #86b817;
-  text-shadow: -3px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+	text-shadow: -3px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .price-overlay .number-animate {
-  display: inline-block;
+	display: inline-block;
 }
 
 .half-opacity {
 	opacity: 0.5;
-};
+}
 
 .full-opacity {
-	opacity: 1
-};
+	opacity: 1;
+}
 
 .donation-amount-hover:hover {
 	opacity: 1;
@@ -90,4 +90,16 @@ code {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+
+.left-price {
+	color: #86b817;
+}
+
+.right-price-green {
+	color: #86b817;
+}
+
+.right-price-red {
+	color: #e53238;
 }

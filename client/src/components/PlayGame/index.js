@@ -60,6 +60,13 @@ function PlayGame() {
 
 	useEffect(redirectHome, [leftObj, rightObj]);
 	useEffect(noMoreItems, [currentItemIndex, items.length]);
+	useEffect(() => {
+		if (wrongAns) {
+			const rightPriceEl = document.querySelector(".right-price-green");
+			rightPriceEl.classList.remove("right-price-green");
+			rightPriceEl.classList.add("right-price-red");
+		}
+	}, [wrongAns]);
 
 	const {
 		itemId: leftItemId,
@@ -119,7 +126,7 @@ function PlayGame() {
 
 				setTimeout(() => {
 					gameOver();
-				}, 2600);
+				}, 2001);
 			}
 		} else {
 			if (rightPrice < leftPrice) {
@@ -138,7 +145,7 @@ function PlayGame() {
 
 				setTimeout(() => {
 					gameOver();
-				}, 2600);
+				}, 2001);
 			}
 		}
 	};
@@ -146,6 +153,10 @@ function PlayGame() {
 	console.log("right", rightPrice);
 	return (
 		<Container maxW="container.xl" p={0}>
+			<Center>
+				<Score />
+			</Center>
+
 			<Flex
 				h="auto"
 				py={[0, 10, 20]}
@@ -170,6 +181,7 @@ function PlayGame() {
 					}
 					color="white"
 					className="vs-overlay"
+					display={{ base: "none", md: "flex" }}
 				>
 					VS.
 				</Circle>
@@ -182,8 +194,6 @@ function PlayGame() {
 					link={rightLink}
 					checkAnswer={checkAnswer}
 				/>
-
-				<Score />
 			</Flex>
 		</Container>
 	);

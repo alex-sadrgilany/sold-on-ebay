@@ -18,6 +18,7 @@ function Success() {
 		
 		setTimeout(() => {
 			window.location.assign("/");
+			localStorage.removeItem("donation");
 		}, 3000);
 
 		saveOrder();

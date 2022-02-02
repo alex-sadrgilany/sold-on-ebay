@@ -5,7 +5,7 @@ function Logo(props) {
   return (
     <Box {...props}>
       <Text fontSize="lg" fontWeight="bold">
-        <Link href="/">Logo</Link>
+        <Link href="/">Home</Link>
       </Text>
     </Box>
   )

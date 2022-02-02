@@ -18,17 +18,19 @@ import {
 	useBreakpointValue,
 	Image,
 	Link,
-	Divider
+	Divider,
+	Center
 } from "@chakra-ui/react";
+
+import { removeItemId } from "../utils/localStorage";
 
 function Profile() {
 	const { loading, data } = useQuery(QUERY_ME);
 	const [deleteItem, { error }] = useMutation(DELETE_ITEM);
 	const { username, highScore, savedItems, orders } = data?.me || {};
 
-	console.log(data);
+	const colSpan = useBreakpointValue({ base: 2, md: 1})
 
-	console.log(orders);
 	// function to handle deleting item from User
 	const handleDeleteItem = async (id) => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -41,6 +43,8 @@ function Profile() {
 			const { data } = await deleteItem({
 				variables: { itemId: id }
 			});
+
+			removeItemId(id);
 		} catch (err) {
 			console.error(err);
 		}
@@ -52,65 +56,72 @@ function Profile() {
 
 	return (
 		<Container maxW="container.xl" p={0}>
-			<VStack h="auto" py={[0, 10, 20]}>
-			<Heading textAlign={"center"}>{username}'s Profile</Heading>
-			<Text textAlign={"center"}>High Score {highScore}</Text>
-			</VStack>
-			
 			<Flex
 				h="auto"
 				py={[0, 10, 20]}
 				flexDirection={{ base: "column", md: "row" }}
 			>
 				<VStack
-					w="full"
 					h="full"
-					p={10}
-					spacing={10}
-					alignItems="flex-start"
+					w="full"
+					py={[0, 10, 20]}
 				>
-					<Text>Saved Items</Text>
-
-					{savedItems?.map((item) => {
-						return (
-							<VStack key={item.itemId}>
-								<SimpleGrid
+					<VStack>
+						<Heading>
+							{username}'s Profile
+						</Heading>
+						<Heading>High Score {highScore}</Heading>
+					</VStack>
+					<SimpleGrid
 									columns={2}
 									columnGap={3}
 									rowGap={3}
 									w="full"
 								>
+					
+					<GridItem colSpan={colSpan}>
+
+					{savedItems.length ? (
+						savedItems.map((item) => {
+							return (
+								<SimpleGrid
+									columns={2}
+									columnGap={3}
+									rowGap={3}
+									w="full"
+									p={2}
+									key={item.itemId}
+								>
 									<Divider borderColor={"primary.blue"}></Divider>
 									<GridItem colSpan={2}>
 										<Text>{item.title}</Text>
 									</GridItem>
-									<GridItem colSpan={1}>
+									<GridItem colSpan={2}>
 										<Flex justify="space-between" h={10}>
-											<Text
-												fontSize="lg"
-												fontWeight="semibold"
-											>
+											<Text fontSize="lg">
 												Sold Price
 											</Text>
 											<Text
 												fontSize="xl"
 												fontWeight="extrabold"
-												className="checkout-number"
 											>
-												{item.price}
+												${item.price}
 											</Text>
 										</Flex>
 									</GridItem>
-									<GridItem colSpan={1}>
-										<Link href={item.link} isExternal>
-											View on eBay
-										</Link>
+									<GridItem colSpan={2}>
+										<Button variant={"primary"} w="full">
+											<Link href={item.link} isExternal>
+												View on eBay
+											</Link>
+										</Button>
 									</GridItem>
 									<GridItem colSpan={2}>
-										<Image src={item.image} />
+										<Image src={item.image} w="full" />
 									</GridItem>
 									<GridItem colSpan={2}>
 										<Button
+											w="full"
 											variant={"danger"}
 											onClick={() =>
 												handleDeleteItem(item.itemId)
@@ -119,70 +130,79 @@ function Profile() {
 											Delete Item
 										</Button>
 									</GridItem>
-									<Divider borderColor={"primary.blue"}></Divider>
 								</SimpleGrid>
-							</VStack>
-						);
-					})}
-				</VStack>
-				<VStack
-					w="full"
-					h="full"
-					p={10}
-					spacing={10}
-					alignItems="flex-start"
-				>
-					<Text>Donation History</Text>
-					{orders?.map(({ _id, donationAmount, donationDate }) => {
-						return (
-							<VStack key={_id}>
-								<SimpleGrid
-									columns={2}
-									columnGap={3}
-									rowGap={3}
-									w="full"
-								>
-									<GridItem colSpan={1}>
-										<Flex justify="space-between" h={10}>
-											<Text
-												fontSize="lg"
-												fontWeight="semibold"
+							);
+						})
+					) : (
+						<Text>You have no saved items</Text>
+					)}
+					</GridItem>
+
+					<GridItem colSpan={colSpan}>
+
+					{orders.length ? (
+						orders.map(({ _id, donationAmount, donationDate }) => {
+							return (
+									<SimpleGrid
+										columns={2}
+										columnGap={3}
+										rowGap={3}
+										w="full"
+										p={2}
+										key={_id}
+									>
+										<Divider
+											borderColor={"primary.blue"}
+										></Divider>
+
+										<GridItem colSpan={2}>
+											<Flex
+												justify="space-between"
+												h={10}
 											>
-												Date
-											</Text>
-											<Text
-												fontSize="xl"
-												fontWeight="extrabold"
-												className="checkout-number"
+												<Text
+													fontSize="lg"
+												>
+													Date
+												</Text>
+												<Text
+													fontSize="xl"
+													fontWeight="extrabold"
+													className="checkout-number"
+												>
+													{new Date(
+														parseInt(donationDate)
+													).toLocaleDateString()}
+												</Text>
+											</Flex>
+										</GridItem>
+										<GridItem colSpan={2}>
+											<Flex
+												justify="space-between"
+												h={10}
 											>
-												{new Date(
-													parseInt(donationDate)
-												).toLocaleDateString()}
-											</Text>
-										</Flex>
-									</GridItem>
-									<GridItem colSpan={1}>
-										<Flex justify="space-between" h={10}>
-											<Text
-												fontSize="lg"
-												fontWeight="semibold"
-											>
-												Amount
-											</Text>
-											<Text
-												fontSize="xl"
-												fontWeight="extrabold"
-												className="checkout-number"
-											>
-												${donationAmount}
-											</Text>
-										</Flex>
-									</GridItem>
-									
-								</SimpleGrid>
-							</VStack>
-						);
-					})}
+												<Text
+													fontSize="lg"
+												>
+													Amount
+												</Text>
+												<Text
+													fontSize="xl"
+													fontWeight="extrabold"
+													className="checkout-number"
+												>
+													${donationAmount}
+												</Text>
+											</Flex>
+										</GridItem>
+									</SimpleGrid>
+							);
+						})
+					) : (
+						<Text>You have no donations</Text>
+					)}
+					</GridItem>
+					</SimpleGrid>
 				</VStack>
 			</Flex>
 		</Container>

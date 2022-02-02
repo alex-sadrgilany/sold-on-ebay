@@ -17,19 +17,25 @@ import {
 function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 	const [toggleHide, setToggleHide] = useState(true);
 	return (
-		<VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
+		<VStack w="full" h="full" spacing={1} padding={1} alignItems="flex-start" position={"relative"}>
 			<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
 				<GridItem colSpan={2} h="100px">
-					<Heading textAlign={"center"}>"{title}"</Heading>
+					<Heading
+						textAlign={"center"}
+						fontSize={title.length > 50 ? "28" : null}
+					>
+						"{title}"
+					</Heading>
 				</GridItem>
 				<GridItem colSpan={2}>
-					<Image src={image} w="full" h="650px"/>
+					<Image src={image} w="full" h="650px" />
 					<Text
-						className={`price-overlay ${toggleHide ? "hide" : ""}`}
+						className={`price-overlay right-price-green ${toggleHide ? "hide" : ""}`}
+						fontSize={{ base: "65px", md: "100px" }}
 					>
 						$
 						<span
-							className="number-animate"
+							className="number-animate right-price-int"
 							data-end-value={price.toFixed(2)}
 							data-increment="0.01"
 							data-duration="1500"
@@ -47,7 +53,7 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 							checkAnswer("higher");
 							setTimeout(() => {
 								setToggleHide(true);
-							}, [2000]);
+							}, 2000);
 						}}
 					>
 						Higher
@@ -62,7 +68,7 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 							checkAnswer("lower");
 							setTimeout(() => {
 								setToggleHide(true);
-							}, [2000]);
+							}, 2000);
 						}}
 					>
 						Lower
