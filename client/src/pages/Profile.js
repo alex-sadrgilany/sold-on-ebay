@@ -14,6 +14,8 @@ function Profile() {
 	const { username, highScore, savedItems, orders } = data?.me || {};
 	const [donationAmount, setDonationAmount] = useState(0);
 
+	console.log(data);
+
 	console.log(orders);
 	// function to handle deleting item from User
 	const handleDeleteItem = async (id) => {
@@ -41,7 +43,7 @@ function Profile() {
 			<h1>{username}'s Profile</h1>
 			<h2>Your high score: {highScore}</h2>
 			<div>
-				{savedItems.map((item) => {
+				{savedItems?.map((item) => {
 					return (
 						<Box
 							rounded="lg"

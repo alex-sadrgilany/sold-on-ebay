@@ -42,6 +42,9 @@ function PlayGame() {
 	const leftObj = items[currentItemIndex];
 	const rightObj = items[currentItemIndex + 1];
 
+	const [wrongAns, setWrongAns] = useState(false);
+	const [correctAns, setCorrectAns] = useState(false);
+
 	const redirectHome = () => {
 		if (!rightObj && !leftObj) {
 			window.location.assign("/");
@@ -98,37 +101,20 @@ function PlayGame() {
 		}
 	};
 
-	const flashGreen = () => {
-		const container = document.querySelector(".chakra-container");
-		container.classList.add("green-background");
-
-		setTimeout(() => {
-			container.classList.remove("green-background");
-		}, 1300);
-	};
-
-	const flashRed = () => {
-		const container = document.querySelector(".chakra-container");
-		container.classList.add("red-background");
-
-		setTimeout(() => {
-			container.classList.remove("red-background");
-		}, 1300);
-	};
-
 	const checkAnswer = (guess) => {
 		if (guess === "higher") {
 			if (rightPrice > leftPrice) {
-				flashGreen();
+				setCorrectAns(true);
 				runAnime();
 
 				setTimeout(() => {
 					dispatch({
 						type: CORRECT_GUESS
 					});
+					setCorrectAns(false);
 				}, 2000);
 			} else {
-				flashRed();
+				setWrongAns(true);
 				runAnime();
 
 				setTimeout(() => {
@@ -137,16 +123,17 @@ function PlayGame() {
 			}
 		} else {
 			if (rightPrice < leftPrice) {
-				flashGreen();
+				setCorrectAns(true);
 				runAnime();
 
 				setTimeout(() => {
 					dispatch({
 						type: CORRECT_GUESS
 					});
+					setCorrectAns(false);
 				}, 2000);
 			} else {
-				flashRed();
+				setWrongAns(true);
 				runAnime();
 
 				setTimeout(() => {
@@ -170,7 +157,18 @@ function PlayGame() {
 					/>
 				</Box>
 			</GridItem>
-			<Circle size="100px" bg="primary.blue" color="white" className="vs-overlay">
+			<Circle
+				size="100px"
+				backgroundColor={
+					wrongAns
+						? "primary.red"
+						: correctAns
+						? "primary.green"
+						: "primary.blue"
+				}
+				color="white"
+				className="vs-overlay"
+			>
 				VS.
 			</Circle>
 			<GridItem colSpan={1}>

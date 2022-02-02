@@ -1,7 +1,6 @@
 {
 	"name": "sold-on-ebay-server",
 	"version": "1.0.0",
-	"proxy": "http://localhost:3001/",
 	"main": "server.js",
 	"keywords": [],
 	"author": "",

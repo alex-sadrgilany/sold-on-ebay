@@ -24,7 +24,6 @@ import Donation from "./components/Donation";
 import customTheme from "./styles/theme";
 
 const httpLink = createHttpLink({
-	useGETForQueries: true,
 	uri: "/graphql"
 });
 const authLink = setContext((_, { headers }) => {
