@@ -93,7 +93,7 @@ function Profile() {
 														fontSize="xl"
 														fontWeight="extrabold"
 													>
-														${item.price}
+														${item.price.toFixed(2)}
 													</Text>
 												</Flex>
 											</GridItem>
