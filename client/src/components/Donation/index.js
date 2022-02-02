@@ -5,7 +5,6 @@ import {
 	Flex,
 	Heading,
 	HStack,
-	Link,
 	Stack,
 	Button,
 	NumberInput,
@@ -13,7 +12,12 @@ import {
 	NumberInputStepper,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
-	Text
+	Text,
+	Container,
+	VStack,
+	SimpleGrid,
+	GridItem,
+	useBreakpointValue
 } from "@chakra-ui/react";
 import { useStoreContext } from "../../utils/GlobalState";
 import { useLazyQuery } from "@apollo/client";
@@ -47,20 +51,6 @@ function Donation() {
 		});
 
 		localStorage.setItem("donation", donation);
-
-		if (checkoutEl.classList.contains("half-opacity")) {
-			checkoutEl.classList.remove("half-opacity");
-			checkoutEl.classList.add("full-opacity");
-		}
-
-		if (donationEl.classList.contains("half-opacity")) {
-			donationEl.classList.remove("half-opacity");
-			donationEl.classList.add("full-opacity");
-		} else {
-			donationEl.classList.remove("full-opacity");
-			donationEl.classList.add("half-opacity", "donation-amount-hover");
-		}
-
 		checkoutTotal.innerHTML = "$" + donation;
 	};
 
@@ -79,31 +69,25 @@ function Donation() {
 		});
 	};
 
-	return (
-		<Box
-			maxW={{ base: "3xl", lg: "12xl" }}
-			mx="auto"
-			px={{ base: "4", md: "8", lg: "9" }}
-			py={{ base: "6", md: "8", lg: "9" }}
-			bgColor={"primary.yellow"}
-		>
-			<Stack
-				direction={{ base: "column", lg: "row" }}
-				align={{ lg: "flex-start" }}
-				spacing={{ base: "8", md: "16" }}
-			>
-				<Flex direction="column" align="center" flex="1">
-					<Stack
-						spacing="4"
-						borderWidth="1px"
-						rounded="lg"
-						padding="8"
-						width="full"
-						className="full-opacity donate-box"
-					>
-						<Heading size="md">Donate</Heading>
+	const colSpan = useBreakpointValue({ base: 2, md: 1})
 
-						<Stack spacing="6">
+	return (
+		<Container maxW="container.xl" p={0}>
+			<Flex
+				h="auto"
+				py={[0, 10, 20]}
+				flexDirection={{ base: "column", md: "row" }}
+			>
+				<VStack
+					w="full"
+					h="full"
+					p={10}
+					spacing={10}
+					alignItems="flex-start"
+				>
+					<Heading>Donate</Heading>
+					<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
+						<GridItem colSpan={2}>
 							<NumberInput
 								defaultValue={0}
 								min={0}
@@ -127,48 +111,63 @@ function Donation() {
 									/>
 								</NumberInputStepper>
 							</NumberInput>
-						</Stack>
-						<HStack>
-							<Button variant="primary" onClick={addToCart}>
+						</GridItem>
+						<GridItem colSpan={colSpan}>
+							<Button
+								variant="primary"
+								onClick={addToCart}
+								w="full"
+							>
 								Add To Cart
 							</Button>
-							<Button variant="danger" onClick={clearCart}>
+						</GridItem>
+						<GridItem colSpan={colSpan}>
+							<Button
+								variant="danger"
+								onClick={clearCart}
+								w="full"
+							>
 								Clear Cart
 							</Button>
-						</HStack>
-					</Stack>
-				</Flex>
-
-				<Flex direction="column" align="center" flex="1">
-					<Stack
-						spacing="8"
-						borderWidth="1px"
-						rounded="lg"
-						padding="8"
-						width="full"
-						className="half-opacity checkout-box"
-					>
-						<Heading size="md">Donation Summary</Heading>
-
-						<Flex justify="space-between">
-							<Text fontSize="lg" fontWeight="semibold">
-								Total
-							</Text>
-							<Text
-								fontSize="xl"
-								fontWeight="extrabold"
-								className="checkout-number"
+						</GridItem>
+					</SimpleGrid>
+				</VStack>
+				<VStack
+					w="full"
+					h="full"
+					p={10}
+					spacing={10}
+					alignItems="flex-start"
+				>
+					<Heading>Donation Summary</Heading>
+					<SimpleGrid columns={1} columnGap={3} rowGap={3} w="full">
+						<GridItem colSpan={1}>
+							<Flex justify="space-between" h={10}>
+								<Text fontSize="lg" fontWeight="semibold">
+									Total
+								</Text>
+								<Text
+									fontSize="xl"
+									fontWeight="extrabold"
+									className="checkout-number"
+								>
+									??
+								</Text>
+							</Flex>
+						</GridItem>
+						<GridItem colSpan={1}>
+							<Button
+								variant="secondary"
+								onClick={checkout}
+								w="full"
 							>
-								??
-							</Text>
-						</Flex>
-						<Button variant="secondary" onClick={checkout}>
-							Checkout
-						</Button>
-					</Stack>
-				</Flex>
-			</Stack>
-		</Box>
+								Checkout
+							</Button>
+						</GridItem>
+					</SimpleGrid>
+				</VStack>
+			</Flex>
+		</Container>
 	);
 }
 

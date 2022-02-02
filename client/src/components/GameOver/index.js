@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useStoreContext } from "../../utils/GlobalState";
-import { Heading, Text } from "@chakra-ui/react";
+import { Heading, Text, Container } from "@chakra-ui/react";
 import Auth from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -89,13 +89,16 @@ function GameOver() {
 	}
 
 	return (
-		<div>
-			<Heading as="h1" color="black">
+		<div className="gameover-bg">
+		<Container h="100vh">
+				<Heading as="h1" color="black">
 				Game Over
 			</Heading>
 			<Text color="black">{`Your final score: ${state.score}`}</Text>
 			{showSaveScore()}
+		</Container>
 		</div>
+		
 	);
 }
 

@@ -1,3 +1,7 @@
+body, html {
+	height: 100%
+}
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -78,4 +82,12 @@ code {
 
 .item-title {
 	font-size: 34px;
+}
+
+.gameover-bg {
+	background-image: url(../public/images/gameover.gif);
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }

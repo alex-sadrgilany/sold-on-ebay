@@ -145,47 +145,47 @@ function PlayGame() {
 
 	console.log("right", rightPrice);
 	return (
-		<SimpleGrid columns={2} spacing={5} position={"relative"}>
-			<GridItem colSpan={1}>
-				<Box bg="white">
-					<LeftItem
-						itemId={leftItemId}
-						image={leftImage}
-						title={leftTitle}
-						price={leftPrice}
-						link={leftLink}
-					/>
-				</Box>
-			</GridItem>
-			<Circle
-				size="100px"
-				backgroundColor={
-					wrongAns
-						? "primary.red"
-						: correctAns
-						? "primary.green"
-						: "primary.blue"
-				}
-				color="white"
-				className="vs-overlay"
+		<Container maxW="container.xl" p={0}>
+			<Flex
+				h="auto"
+				py={[0, 10, 20]}
+				flexDirection={{ base: "column", md: "row" }}
 			>
-				VS.
-			</Circle>
-			<GridItem colSpan={1}>
-				<Box bg="white" colSpan={1}>
-					<RightItem
-						itemId={rightItemId}
-						image={rightImage}
-						title={rightTitle}
-						price={rightPrice}
-						link={rightLink}
-						checkAnswer={checkAnswer}
-					/>
-				</Box>
-			</GridItem>
+				<LeftItem
+					itemId={leftItemId}
+					image={leftImage}
+					title={leftTitle}
+					price={leftPrice}
+					link={leftLink}
+				/>
 
-			<Score />
-		</SimpleGrid>
+				<Circle
+					size="100px"
+					backgroundColor={
+						wrongAns
+							? "primary.red"
+							: correctAns
+							? "primary.green"
+							: "primary.blue"
+					}
+					color="white"
+					className="vs-overlay"
+				>
+					VS.
+				</Circle>
+
+				<RightItem
+					itemId={rightItemId}
+					image={rightImage}
+					title={rightTitle}
+					price={rightPrice}
+					link={rightLink}
+					checkAnswer={checkAnswer}
+				/>
+
+				<Score />
+			</Flex>
+		</Container>
 	);
 }
 

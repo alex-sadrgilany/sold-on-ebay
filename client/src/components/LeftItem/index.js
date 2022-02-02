@@ -10,7 +10,8 @@ import {
 	VStack,
 	Stack,
 	Text,
-	SimpleGrid
+	SimpleGrid,
+	GridItem
 } from "@chakra-ui/react";
 
 import { useStoreContext } from "../../utils/GlobalState";
@@ -45,32 +46,35 @@ function LeftItem({ itemId, image, title, price, link }) {
 	};
 
 	return (
-		<VStack w="full" h="750px">
-			<Heading maxH="90px" className="item-title">"{title}"</Heading>
-			<Box className="text-overlay-box" boxSize="600px">
-				<Image src={image} w="100%" h="100%" />
-				<Text className="price-overlay">${price.toFixed(2)}</Text>
-			</Box>
-
-			<SimpleGrid columns={2}>
-				<Button colSpan={1} variant="danger">
-					<Link href={link} isExternal>
-						Details on eBay!
-					</Link>
-				</Button>
-				{Auth.loggedIn() ? (
-					<Button
-						colSpan={1}
-						variant="danger"
-						onClick={() => handleSaveItem(itemId)}
-					>
-						Save this Item!
+		<VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
+			<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
+				<GridItem colSpan={2} h="100px">
+					<Heading textAlign={"center"}>"{title}"</Heading>
+				</GridItem>
+				<GridItem colSpan={2}>
+					<Image src={image} w="full" h="650px"/>
+					<Text className="price-overlay">${price.toFixed(2)}</Text>
+				</GridItem>
+				<GridItem colSpan={2}>
+					<Button w="full" variant="danger">
+						<Link href={link} isExternal>
+							Details on eBay!
+						</Link>
 					</Button>
-				) : (
-					<Text colSpan={1}>
-						Signup/Login to Save
-					</Text>
-				)}
+				</GridItem>
+				<GridItem colSpan={2}>
+					{Auth.loggedIn() ? (
+						<Button
+							w="full"
+							variant="danger"
+							onClick={() => handleSaveItem(itemId)}
+						>
+							Save this Item!
+						</Button>
+					) : (
+						<Text textAlign={"center"}>Signup/Login to Save</Text>
+					)}
+				</GridItem>
 			</SimpleGrid>
 		</VStack>
 	);

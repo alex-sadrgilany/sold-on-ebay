@@ -66,6 +66,8 @@ function ImportDataButton() {
 					(result.shipping_cost ? result.shipping_cost : 0)
 			}));
 
+			console.log(items);
+
 			dispatch({
 				type: FETCH_DATA_SUCCESS,
 				payload: shuffle(items)

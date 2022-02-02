@@ -15,6 +15,10 @@ function Success() {
 				variables: { amount: parseInt(donatedAmount) }
 			});	
 		}
+		
+		setTimeout(() => {
+			window.location.assign("/");
+		}, 3000);
 
 		saveOrder();
 	}, [addOrder]);
@@ -23,7 +27,7 @@ function Success() {
 	return (
 		<div>
 				<h1>Success!</h1>
-				<h2>Thank you for your purchase!</h2>
+				<h2>Thank you so much for the donation!</h2>
 				<h2>You will now be directed to the homepage</h2>
 		</div>
 	);

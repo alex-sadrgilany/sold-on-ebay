@@ -17,7 +17,9 @@ import {
 	Center,
 	Button,
 	Link,
-	FormErrorMessage
+	FormErrorMessage,
+	Container,
+	Flex
 } from "@chakra-ui/react";
 
 function Login() {
@@ -53,63 +55,74 @@ function Login() {
 	const allFieldsValid = !isPasswordError && !isEmailError;
 
 	return (
-		<VStack w="full" h="full" p={10} spacing={10}>
-			<VStack>
-				<Heading>Login Form</Heading>
-				<Text>
-					<Link href="/signup">Not a user?</Link>
-				</Text>
-			</VStack>
-			<form id="signup-form" onSubmit={handleFormSubmit}>
-				<SimpleGrid columns={2} w="full">
-					<GridItem colSpan={2}>
-						<FormControl isInvalid={isEmailError}>
-							<FormLabel>Email</FormLabel>
-							<Input
-								placeholder="email@mail.com"
-								name="email"
-								type="email"
-								id="email_input"
-								onChange={handleChange}
-							/>
-							{isEmailError ? (
-								<FormErrorMessage>
-									Email must be a valid email address
-								</FormErrorMessage>
-							) : null}
-						</FormControl>
-					</GridItem>
+		<Container maxW="container.xl" p={0}>
+			<Flex h="auto" py={[0, 10, 20]}>
+				<VStack w="full" h="full" p={10} spacing={10}>
+					<VStack>
+						<Heading>Login Form</Heading>
+						<Text>
+							<Link href="/signup" color="primary.red">Not a user?</Link>
+						</Text>
+					</VStack>
+					<form id="signup-form" onSubmit={handleFormSubmit}>
+						<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
+							<GridItem colSpan={2}>
+								<FormControl isInvalid={isEmailError}>
+									<FormLabel>Email</FormLabel>
+									<Input
+										placeholder="email@mail.com"
+										name="email"
+										type="email"
+										id="email_input"
+										onChange={handleChange}
+									/>
+									{isEmailError ? (
+										<FormErrorMessage>
+											Email must be a valid email address
+										</FormErrorMessage>
+									) : null}
+								</FormControl>
+							</GridItem>
 
-					<GridItem colSpan={2}>
-						<FormControl isInvalid={isPasswordError}>
-							<FormLabel>Password</FormLabel>
-							<Input
-								placeholder="********"
-								name="password"
-								type="password"
-								id="password_input"
-								onChange={handleChange}
-							/>
-							{isPasswordError ? (
-								<FormErrorMessage>
-									Password must be at least 8 characters
-								</FormErrorMessage>
-							) : null}
-						</FormControl>
-					</GridItem>
-					<GridItem colSpan={2}>
-						{error ? <Text>All fields are required!</Text> : null}
-					</GridItem>
-					<GridItem colSpan={2}>
-						{allFieldsValid ? (
-							<Button type="submit" w="full">
-								Submit
-							</Button>
-						) : null}
-					</GridItem>
-				</SimpleGrid>
-			</form>
-		</VStack>
+							<GridItem colSpan={2}>
+								<FormControl isInvalid={isPasswordError}>
+									<FormLabel>Password</FormLabel>
+									<Input
+										placeholder="********"
+										name="password"
+										type="password"
+										id="password_input"
+										onChange={handleChange}
+									/>
+									{isPasswordError ? (
+										<FormErrorMessage>
+											Password must be at least 8
+											characters
+										</FormErrorMessage>
+									) : null}
+								</FormControl>
+							</GridItem>
+							<GridItem colSpan={2}>
+								{error ? (
+									<Text>All fields are required!</Text>
+								) : null}
+							</GridItem>
+							<GridItem colSpan={2}>
+								{allFieldsValid ? (
+									<Button
+										type="submit"
+										w="full"
+										variant={"primary"}
+									>
+										Submit
+									</Button>
+								) : null}
+							</GridItem>
+						</SimpleGrid>
+					</form>
+				</VStack>
+			</Flex>
+		</Container>
 	);
 }
 
