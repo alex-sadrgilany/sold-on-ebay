@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useStoreContext } from "../../utils/GlobalState";
-import { Heading, Text } from "@chakra-ui/core";
+import { Heading, Text } from "@chakra-ui/react";
 import Auth from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -11,13 +11,10 @@ import { SAVE_SCORE } from "../../utils/mutations";
 function GameOver() {
 	const [state] = useStoreContext();
 	const navigate = useNavigate();
-	const [saveScore, { error }] = useMutation(SAVE_SCORE);
 	const { loading, data } = useQuery(QUERY_ME);
+	const [saveScore, { error }] = useMutation(SAVE_SCORE);
 	const userData = data?.me || {};
-	console.log(userData);
-
 	const { score } = state;
-	console.log(userData.highScore);
 
 	// const handleSaveScore = async (s) => {
 	// 	const scoreToSave = s;
@@ -41,6 +38,7 @@ function GameOver() {
 	// const ifScoreHigher = () => {
 
 	// }
+
 
 	const showSaveScore = () => {
 		if (Auth.loggedIn()) {
@@ -81,9 +79,14 @@ function GameOver() {
 				);
 			}
 		} else {
+			localStorage.setItem("guestScore", score);
 			return <div>Sign up or Log in to save your high score!</div>;
 		}
 	};
+
+	if (loading) {
+		return <div>LOADING...</div>;
+	}
 
 	return (
 		<div>

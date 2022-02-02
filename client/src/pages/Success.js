@@ -3,18 +3,17 @@ import { useMutation } from "@apollo/client";
 import { ADD_ORDER } from "../utils/mutations";
 import { useStoreContext } from "../utils/GlobalState";
 
-function Success(amount) {
+function Success() {
 	const [addOrder] = useMutation(ADD_ORDER);
-    const [state] = useStoreContext();
-	const { cart } = state;
+    
+	const donatedAmount = localStorage.getItem("donation");
 
 	useEffect(() => {
 		
 		async function saveOrder() {
 			addOrder({
-				variables: { amount: parseInt(cart)}
+				variables: { amount: parseInt(donatedAmount) }
 			});	
-			console.log(cart);
 		}
 
 		saveOrder();

@@ -8,8 +8,30 @@ import Score from "../Score";
 import LeftItem from "../LeftItem";
 import RightItem from "../RightItem";
 
+import {
+	FormControl,
+	FormLabel,
+	Input,
+	VStack,
+	Heading,
+	Text,
+	SimpleGrid,
+	GridItem,
+	Select,
+	Checkbox,
+	Button,
+	Link,
+	Stack,
+	Container,
+	Flex,
+	Divider,
+	Box
+} from "@chakra-ui/react";
+
+import anime from "animejs";
+
 function PlayGame() {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 	const [state, dispatch] = useStoreContext();
 
 	const { items, currentItemIndex } = state;
@@ -28,78 +50,140 @@ function PlayGame() {
 			alert("wow you answered every single one correctly!!");
 			gameOver();
 		}
-	}
+	};
 
 	useEffect(redirectHome, []);
 	useEffect(noMoreItems, [currentItemIndex]);
 
-	console.log("left item", leftObj);
-	console.log("right item", rightObj);
+	
 
 	const {
-        itemId: leftItemId,
-        image: leftImage,
-        title: leftTitle,
-        price: leftPrice,
-        link: leftLink
-    } = leftObj || "";
+		itemId: leftItemId,
+		image: leftImage,
+		title: leftTitle,
+		price: leftPrice,
+		link: leftLink
+	} = leftObj || "";
 
-    const {
-        itemId: rightItemId,
-        image: rightImage,
-        title: rightTitle,
-        price: rightPrice,
-        link: rightLink
-    } = rightObj || "";
-
-	console.log(leftItemId);
+	const {
+		itemId: rightItemId,
+		image: rightImage,
+		title: rightTitle,
+		price: rightPrice,
+		link: rightLink
+	} = rightObj || "";
 
 	const gameOver = () => {
 		navigate("/gameover");
+	};
+	const runAnime = () => {
+		const hiddenEl = document.querySelector(".hide");
+		hiddenEl.classList.remove("hide");
+
+		document.querySelectorAll(".number-animate").forEach((el) => {
+			const endValue = el.getAttribute("data-end-value");
+			const incrementValue = el.getAttribute("data-increment");
+			const durationValue = el.getAttribute("data-duration");
+
+			if (endValue)
+				numberAnimation(el, endValue, incrementValue, durationValue);
+		});
+
+		function numberAnimation(el, endValue, incrementor, duration) {
+			anime({
+				targets: el,
+				textContent: endValue,
+				round: incrementor ? 1 / incrementor : 1 / 5,
+				easing: "easeInOutQuad",
+				duration: duration ? duration : 1500
+			});
+		}
+	};
+
+	const flashGreen = () => {
+		const container = document.querySelector(".chakra-container");
+		container.classList.add("green-background");
+
+		setTimeout(() => {
+			container.classList.remove("green-background");
+		}, 1300);
+	};
+
+	const flashRed = () => {
+		const container = document.querySelector(".chakra-container");
+		container.classList.add("red-background");
+
+		setTimeout(() => {
+			container.classList.remove("red-background");
+		}, 1300);
 	};
 
 	const checkAnswer = (guess) => {
 		if (guess === "higher") {
 			if (rightPrice > leftPrice) {
-				alert("correct!");
-				dispatch({
-					type: CORRECT_GUESS
-				});
+				flashGreen();
+				runAnime();
+
+				setTimeout(() => {
+					dispatch({
+						type: CORRECT_GUESS
+					});
+				}, 2000);
 			} else {
-				gameOver();
+				flashRed();
+				runAnime();
+
+				setTimeout(() => {
+					gameOver();
+				}, 2000);
 			}
 		} else {
 			if (rightPrice < leftPrice) {
-				alert("correct!");
-				dispatch({
-					type: CORRECT_GUESS
-				});
+				flashGreen();
+				runAnime();
+
+				setTimeout(() => {
+					dispatch({
+						type: CORRECT_GUESS
+					});
+				}, 2000);
 			} else {
-				gameOver();
+				flashRed();
+				runAnime();
+
+				setTimeout(() => {
+					gameOver();
+				}, 2000);
 			}
 		}
 	};
 
+	console.log("right", rightPrice)
 	return (
-		<div>
+		<SimpleGrid columns={2} spacing={5}>
+			<Box bg="white" colSpan={1}>
+				<LeftItem
+					itemId={leftItemId}
+					image={leftImage}
+					title={leftTitle}
+					price={leftPrice}
+					link={leftLink}
+				/>
+			</Box>
+			<Box bg="white" colSpan={1}>
+				<RightItem
+					itemId={rightItemId}
+					image={rightImage}
+					title={rightTitle}
+					price={rightPrice}
+					link={rightLink}
+					checkAnswer={checkAnswer}
+				/>
+			</Box>
+
 			<Score />
-			<LeftItem
-				itemId={leftItemId}
-				image={leftImage}
-				title={leftTitle}
-				price={leftPrice}
-				link={leftLink}
-			/>
-			<RightItem
-				itemId={rightItemId}
-				image={rightImage}
-				title={rightTitle}
-				price={rightPrice}
-				link={rightLink}
-				checkAnswer={checkAnswer}
-			/>
-		</div>
+		</SimpleGrid>
 	);
-};
+}
 
 export default PlayGame;

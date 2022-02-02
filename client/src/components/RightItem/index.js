@@ -1,56 +1,55 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {
 	Box,
-	Button,
 	Heading,
 	Divider,
-	Image,
 	Link,
-	Text
-} from "@chakra-ui/core";
+	Image,
+	Button,
+	VStack,
+	Stack,
+	Text,
+	SimpleGrid
+} from "@chakra-ui/react";
 
 function RightItem({ itemId, image, title, price, link, checkAnswer }) {
+	
 	return (
-		<Box
-			rounded="lg"
-			textAlign="center"
-			borderWidth="2px"
-			background="white"
-			padding="2rem"
-			width="85vw"
-			key={decodeURIComponent(itemId)}
-		>
-			<Image src={decodeURIComponent(image)} />
-			<Heading as="h2" size="xl">
-				{decodeURIComponent(title)}
-			</Heading>
-			<Divider borderColor="black.600" />
-			<Heading as="h3" size="lg" className="hide">
-				${decodeURIComponent(price.toFixed(2))}
-			</Heading>
-			<Link href={decodeURIComponent(link)} isExternal>
-				View on eBay!
-			</Link>
-			<div className="buttons">
+		<VStack>
+			<Heading>"{title}"</Heading>
+			<Box className="text-overlay-box" w="full" h="750px">
+				<Image src={image} w="100%" h="100%" />
+				<Text 
+					className="price-overlay hide"
+				>
+					$<span className="number-animate" data-end-value={price.toFixed(2)} data-increment="0.01" data-duration="1500">0</span>
+				</Text>
+			</Box>
+
+			<SimpleGrid columns={1}>
 				<Button
-					variantColor="blue"
-					display="block"
-					margin="1rem auto"
+					colSpan={1}
+					variant="primary"
 					onClick={() => checkAnswer("higher")}
 				>
-					<Text>Higher</Text>
+					Higher
 				</Button>
 				<Button
-					variantColor="yellow"
-					display="block"
-					margin="1rem auto"
+					colSpan={1}
+					variant="primary"
 					onClick={() => checkAnswer("lower")}
 				>
-					<Text>Lower</Text>
+					Lower
 				</Button>
-			</div>
-		</Box>
+				<Button colSpan={1} variant="primary">
+					<Link href={link} isExternal>
+						Details on eBay!
+					</Link>
+				</Button>
+			</SimpleGrid>
+		</VStack>
 	);
 }
 
@@ -62,12 +61,12 @@ RightItem.defaultProps = {
 	itemId: ""
 };
 RightItem.propTypes = {
-    image: PropTypes.string,
-    title: PropTypes.string,
-    price: PropTypes.number,
-    link: PropTypes.string,
-    itemId: PropTypes.string,
-    checkAnswer: PropTypes.func.isRequired
+	image: PropTypes.string,
+	title: PropTypes.string,
+	price: PropTypes.number,
+	link: PropTypes.string,
+	itemId: PropTypes.string,
+	checkAnswer: PropTypes.func.isRequired
 };
 
 export default RightItem;

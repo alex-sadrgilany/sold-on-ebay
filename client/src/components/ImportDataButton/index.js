@@ -10,7 +10,7 @@ import {
 
 import { ebayApiCall } from "../../utils/API";
 
-import { Button, Spinner } from "@chakra-ui/core";
+import { Button, Spinner } from "@chakra-ui/react";
 
 function ImportDataButton() {
 	const navigate = useNavigate();
@@ -119,7 +119,7 @@ function ImportDataButton() {
 				onChange={(e) => setSearchInput(e.target.value)}
 				placeholder="Pick your category"
 			/>
-			<Button type="submit">Submit!</Button>
+			<Button type="submit" variant={"primary"}>Submit!</Button>
 		</form>
 	);
 

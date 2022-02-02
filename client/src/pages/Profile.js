@@ -3,12 +3,9 @@ import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { QUERY_ME } from "../utils/queries";
 import { DELETE_ITEM } from "../utils/mutations";
-import Cart from "../components/Cart";
-import { Box, Heading, Divider, Link, Image, Button } from "@chakra-ui/core";
+import { Box, Heading, Divider, Link, Image, Button } from "@chakra-ui/react";
 import { ADD_TO_CART, EMPTY_CART } from "../utils/actions";
 import { useStoreContext } from "../utils/GlobalState";
-
-import { idbPromise } from "../utils/helpers";
 
 
 function Profile() {
@@ -19,7 +16,6 @@ function Profile() {
 	const [donationAmount, setDonationAmount] = useState(0);
 
 	console.log(orders);
-	const { cart } = state;
 	// function to handle deleting item from User
 	const handleDeleteItem = async (id) => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -39,25 +35,13 @@ function Profile() {
 		}
 	};
 
-	const loadOrders = () => {
-		if (data) {
-			return 
-		}
-	}
-
-	useEffect(() => {
-		if (data) {
-
-		}
-	})
-
 	const addToCart = () => {
 		dispatch({
 			type: ADD_TO_CART,
 			payload: parseInt(donationAmount)
 		});
 
-		idbPromise("cart", "put", donationAmount)
+		localStorage.setItem("donation", donationAmount);
 	};
 
 	const clearCart = () => {
@@ -65,6 +49,8 @@ function Profile() {
 		dispatch({
 			type: EMPTY_CART
 		});
+
+		localStorage.removeItem("donation");
 	};
 
 	if (loading) {
@@ -135,7 +121,6 @@ function Profile() {
 				</table>
 				<button onClick={addToCart}>Add to Cart</button>
 				<button onClick={clearCart}>Clear Cart</button>
-				<Cart />
 			</div>
 			<div>
 				<h2>

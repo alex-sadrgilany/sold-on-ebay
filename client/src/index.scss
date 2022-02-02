@@ -1,21 +1,65 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 
 .navActive {
-    color: green;
+	color: green;
 }
 
 .hide {
-  display: none;
+	display: none;
 }
+
+#signup-form {
+	width: 100%;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.red-background {
+  background-color: #e53238;
+}
+
+.green-background {
+  background-color: #86b817;
+}
+
+.text-overlay-box {
+	position: relative;
+	text-align: center;
+	color: white;
+}
+
+.price-overlay {
+  font-size: 160px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  color: #86b817;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.price-overlay .number-animate {
+  display: inline-block;
+}
+
+.half-opacity {
+	opacity: 0.5;
+};
+
+.full-opacity {
+	opacity: 1
+};

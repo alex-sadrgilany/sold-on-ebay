@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { StoreProvider } from "./utils/GlobalState";
-import { ThemeProvider, CSSReset } from "@chakra-ui/core";
+import { ChakraProvider, Container, Flex } from "@chakra-ui/react";
 
 import Welcome from "./components/Welcome";
 import PlayGame from "./components/PlayGame";
@@ -19,6 +19,9 @@ import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Success from "./pages/Success";
 import Nav from "./components/Nav";
+import Donation from "./components/Donation";
+
+import customTheme from "./styles/theme";
 
 const httpLink = createHttpLink({
 	useGETForQueries: true,
@@ -42,28 +45,45 @@ function App() {
 	return (
 		<ApolloProvider client={client}>
 			<Router>
-				<div>
-					<StoreProvider>
-						<ThemeProvider>
-							<CSSReset />
-							<Nav />
-							<Routes>
-								<Route path="/" element={<Welcome />} />
-								<Route path="/login" element={<Login />} />
-								<Route path="/signup" element={<Signup />} />
-								<Route path="/profile" element={<Profile />} />
-								<Route path="/play" element={<PlayGame />} />
-								<Route
-									path="/gameover"
-									element={<GameOver />}
-								/>
-								<Route path="/success" element={<Success />} />
+				<StoreProvider>
+					<ChakraProvider theme={customTheme}>
+						<Nav />
+						<Container maxW="full" p={0} centerContent>
+							<Flex py={20}>
+								<Routes>
+									<Route path="/" element={<Welcome />} />
+									<Route path="/login" element={<Login />} />
+									<Route
+										path="/signup"
+										element={<Signup />}
+									/>
+									<Route
+										path="/profile"
+										element={<Profile />}
+									/>
+									<Route
+										path="/play"
+										element={<PlayGame />}
+									/>
+									<Route
+										path="/gameover"
+										element={<GameOver />}
+									/>
+									<Route
+										path="/success"
+										element={<Success />}
+									/>
+									<Route
+										path="/donation"
+										element={<Donation />}
+									/>
 
-								<Route path="*" element={<NoMatch />} />
-							</Routes>
-						</ThemeProvider>
-					</StoreProvider>
-				</div>
+									<Route path="*" element={<NoMatch />} />
+								</Routes>
+							</Flex>
+						</Container>
+					</ChakraProvider>
+				</StoreProvider>
 			</Router>
 		</ApolloProvider>
 	);
