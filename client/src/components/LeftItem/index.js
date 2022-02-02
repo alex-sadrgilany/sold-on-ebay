@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
-	Box,
 	Heading,
-	Divider,
 	Link,
 	Image,
 	Button,
@@ -39,7 +37,6 @@ function LeftItem({ itemId, image, title, price, link }) {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
 
 		if (!token) {
-			console.log("no token found");
 			return false;
 		}
 

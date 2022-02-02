@@ -13,8 +13,6 @@ import {
 	Text,
 	SimpleGrid,
 	GridItem,
-	Select,
-	Center,
 	Button,
 	Link,
 	FormErrorMessage,
@@ -61,11 +59,18 @@ function Login() {
 					<VStack>
 						<Heading>Login Form</Heading>
 						<Text>
-							<Link href="/signup" color="primary.red">Not a user?</Link>
+							<Link href="/signup" color="primary.red">
+								Not a user?
+							</Link>
 						</Text>
 					</VStack>
 					<form id="signup-form" onSubmit={handleFormSubmit}>
-						<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
+						<SimpleGrid
+							columns={2}
+							columnGap={3}
+							rowGap={3}
+							w="full"
+						>
 							<GridItem colSpan={2}>
 								<FormControl isInvalid={isEmailError}>
 									<FormLabel>Email</FormLabel>

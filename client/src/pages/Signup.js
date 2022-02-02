@@ -13,8 +13,6 @@ import {
 	Text,
 	SimpleGrid,
 	GridItem,
-	Select,
-	Checkbox,
 	Button,
 	Link,
 	FormErrorMessage,
@@ -58,8 +56,8 @@ function Signup() {
 	const isUsernameError = formState.username === "";
 	const allFieldsValid =
 		!isPasswordError && !isEmailError && !isUsernameError;
-	
-	const colSpan = useBreakpointValue({ base: 2, md: 1})
+
+	const colSpan = useBreakpointValue({ base: 2, md: 1 });
 
 	return (
 		<Container maxW="container.xl" p={0}>
@@ -74,7 +72,12 @@ function Signup() {
 						</Text>
 					</VStack>
 					<form id="signup-form" onSubmit={handleFormSubmit}>
-						<SimpleGrid columns={2} w="full" columnGap={5} rowGap={3}>
+						<SimpleGrid
+							columns={2}
+							w="full"
+							columnGap={5}
+							rowGap={3}
+						>
 							<GridItem colSpan={2}>
 								<FormControl isInvalid={isEmailError}>
 									<FormLabel>Email</FormLabel>
@@ -143,7 +146,11 @@ function Signup() {
 							</GridItem>
 							<GridItem colSpan={2}>
 								{allFieldsValid ? (
-									<Button type="submit" w="full" variant={"primary"}>
+									<Button
+										type="submit"
+										w="full"
+										variant={"primary"}
+									>
 										Submit
 									</Button>
 								) : null}

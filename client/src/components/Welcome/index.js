@@ -5,8 +5,6 @@ import {
 	Container,
 	VStack,
 	Text,
-	Center,
-	Box,
 	SimpleGrid,
 	GridItem
 } from "@chakra-ui/react";
@@ -21,17 +19,22 @@ function Welcome() {
 					<SimpleGrid columns={1}>
 						<GridItem p={2} colSpan={1}>
 							<Text>
-								This is a simple guessing game inspired by HigherLower.
+								This is a simple guessing game inspired by
+								HigherLower.
 							</Text>
 						</GridItem>
 						<GridItem p={2} colSpan={1}>
 							<Text>
-								If you've played HigherLower before, the only difference here is you search for your own category.
+								If you've played HigherLower before, the only
+								difference here is you search for your own
+								category.
 							</Text>
 						</GridItem>
-						<GridItem  p={2} colSpan={1}>
+						<GridItem p={2} colSpan={1}>
 							<Text>
-								If you haven't ever played HigherLower, the object is to guess whether one item sold for more or less than the other.
+								If you haven't ever played HigherLower, the
+								object is to guess whether one item sold for
+								more or less than the other.
 							</Text>
 						</GridItem>
 						<GridItem p={2} colSpan={1}>

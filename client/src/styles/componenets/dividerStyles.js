@@ -1,24 +1,24 @@
 const DividerStyles = {
-    baseStyle: {},
+	baseStyle: {},
 
-    sizes: {
-        sm: {
-            w: "20px"
-        },
-        md: {
-            w: "40px"
-        },
-        lg: {
-            w: "80px"
-        },
-        xl: {
-            w: "100px"
-        }
-    },
+	sizes: {
+		sm: {
+			w: "20px"
+		},
+		md: {
+			w: "40px"
+		},
+		lg: {
+			w: "80px"
+		},
+		xl: {
+			w: "100px"
+		}
+	},
 
-    variants: {},
+	variants: {},
 
-    defaultProps: {}
+	defaultProps: {}
 };
 
 export { DividerStyles };

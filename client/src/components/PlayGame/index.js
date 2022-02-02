@@ -8,28 +8,7 @@ import Score from "../Score";
 import LeftItem from "../LeftItem";
 import RightItem from "../RightItem";
 
-import {
-	FormControl,
-	FormLabel,
-	Input,
-	VStack,
-	Heading,
-	Text,
-	SimpleGrid,
-	GridItem,
-	Select,
-	Checkbox,
-	Button,
-	Link,
-	Stack,
-	Container,
-	Flex,
-	Divider,
-	Center,
-	Circle,
-	Square,
-	Box
-} from "@chakra-ui/react";
+import { Container, Flex, Center, Circle } from "@chakra-ui/react";
 
 import anime from "animejs";
 
@@ -150,7 +129,6 @@ function PlayGame() {
 		}
 	};
 
-	console.log("right", rightPrice);
 	return (
 		<Container maxW="container.xl" p={0}>
 			<Center>

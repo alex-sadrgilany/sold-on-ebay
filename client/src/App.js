@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { StoreProvider } from "./utils/GlobalState";
-import { ChakraProvider, Container, Flex } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 
 import Welcome from "./components/Welcome";
 import PlayGame from "./components/PlayGame";

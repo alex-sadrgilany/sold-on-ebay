@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
-	Box,
 	Heading,
-	Divider,
-	Link,
 	Image,
 	Button,
 	VStack,
-	Stack,
 	Text,
 	SimpleGrid,
 	GridItem
@@ -17,7 +13,14 @@ import {
 function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 	const [toggleHide, setToggleHide] = useState(true);
 	return (
-		<VStack w="full" h="full" spacing={1} padding={1} alignItems="flex-start" position={"relative"}>
+		<VStack
+			w="full"
+			h="full"
+			spacing={1}
+			padding={1}
+			alignItems="flex-start"
+			position={"relative"}
+		>
 			<SimpleGrid columns={2} columnGap={3} rowGap={3} w="full">
 				<GridItem colSpan={2} h="100px">
 					<Heading
@@ -30,7 +33,9 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 				<GridItem colSpan={2}>
 					<Image src={image} w="full" h="650px" />
 					<Text
-						className={`price-overlay right-price-green ${toggleHide ? "hide" : ""}`}
+						className={`price-overlay right-price-green ${
+							toggleHide ? "hide" : ""
+						}`}
 						fontSize={{ base: "65px", md: "100px" }}
 					>
 						$

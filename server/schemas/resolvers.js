@@ -36,15 +36,15 @@ const resolvers = {
 		},
 		checkout: async (parent, args, context) => {
 			const url = new URL(context.headers.referer).origin;
-			const donation = args.amount
+			const donation = args.amount;
 			const line_items = [];
-
-			console.log(url);
 
 			const product = await stripe.products.create({
 				name: "Donation",
 				description: "A small donation for enjoying the game",
-				images: [`https://godsu.org/wp-content/uploads/2019/01/s209402941555604081_p1_i1_w1574.jpg`]
+				images: [
+					`https://godsu.org/wp-content/uploads/2019/01/s209402941555604081_p1_i1_w1574.jpg`
+				]
 			});
 
 			const price = await stripe.prices.create({

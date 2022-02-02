@@ -10,7 +10,14 @@ import {
 
 import { ebayApiCall } from "../../utils/API";
 
-import { Button, Spinner, Input, GridItem, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import {
+	Button,
+	Spinner,
+	Input,
+	GridItem,
+	SimpleGrid,
+	useBreakpointValue
+} from "@chakra-ui/react";
 
 function ImportDataButton() {
 	const navigate = useNavigate();
@@ -47,7 +54,6 @@ function ImportDataButton() {
 			dispatch({
 				type: FETCH_DATA_START
 			});
-			console.log("trying to fetch");
 			const response = await ebayApiCall(searchInput);
 
 			if (!response.data.request_info.success) {
@@ -65,8 +71,6 @@ function ImportDataButton() {
 					result.price.value +
 					(result.shipping_cost ? result.shipping_cost : 0)
 			}));
-
-			console.log(items);
 
 			dispatch({
 				type: FETCH_DATA_SUCCESS,

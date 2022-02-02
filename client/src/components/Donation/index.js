@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-	Box,
 	Flex,
 	Heading,
-	HStack,
-	Stack,
 	Button,
 	NumberInput,
 	NumberInputField,
@@ -71,7 +68,7 @@ function Donation() {
 		});
 	};
 
-	const colSpan = useBreakpointValue({ base: 2, md: 1})
+	const colSpan = useBreakpointValue({ base: 2, md: 1 });
 
 	return (
 		<Container maxW="container.xl" p={0}>
@@ -160,19 +157,17 @@ function Donation() {
 						<GridItem colSpan={1}>
 							{Auth.loggedIn() ? (
 								<Button
-								variant="secondary"
-								onClick={checkout}
-								w="full"
-							>
-								
-								Checkout
-							</Button>
+									variant="secondary"
+									onClick={checkout}
+									w="full"
+								>
+									Checkout
+								</Button>
 							) : (
 								<Button variant={"secondary"} w="full">
 									<Link href="/login">Login to checkout</Link>
 								</Button>
 							)}
-							
 						</GridItem>
 					</SimpleGrid>
 				</VStack>
