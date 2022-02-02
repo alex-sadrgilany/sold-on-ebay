@@ -16,7 +16,8 @@ import {
 	VStack,
 	SimpleGrid,
 	GridItem,
-	useBreakpointValue
+	useBreakpointValue,
+	Link
 } from "@chakra-ui/react";
 import Auth from "../../utils/auth";
 import { useStoreContext } from "../../utils/GlobalState";
