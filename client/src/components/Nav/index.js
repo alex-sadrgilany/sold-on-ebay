@@ -64,12 +64,12 @@ function Nav(props) {
 				mb={8}
 				p={8}
 				bg={[
-					"primary.red",
-					"primary.red",
-					"transparent",
-					"transparent"
+					"primary.blue",
+					"primary.blue",
+					"primary.blue",
+					"primary.blue"
 				]}
-				color={["white", "white", "primary.blue", "primary.blue"]}
+				color={["primary.yellow", "primary.yellow", "primary.yellow", "primary.yellow"]}
 				{...props}
 			>
 				{children}
@@ -82,9 +82,11 @@ function Nav(props) {
 			return (
 				<>
 					<MenuItem to="/profile">My Profile</MenuItem>
+					<MenuItem to="/donation">Donate</MenuItem>
 					<MenuItem to="/" isLast>
-						<Button onClick={() => Auth.logout()}>Logout</Button>
+						<Button bgColor="transparent" onClick={() => Auth.logout()}>Logout</Button>
 					</MenuItem>
+					
 				</>
 			);
 		} else {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -15,14 +15,14 @@ import {
 } from "@chakra-ui/react";
 
 function RightItem({ itemId, image, title, price, link, checkAnswer }) {
-	
+	const [toggleHide, setToggleHide] = useState(true);
 	return (
 		<VStack>
 			<Heading>"{title}"</Heading>
 			<Box className="text-overlay-box" w="full" h="750px">
 				<Image src={image} w="100%" h="100%" />
 				<Text 
-					className="price-overlay hide"
+					className={`price-overlay ${toggleHide ? "hide" : ""}`}
 				>
 					$<span className="number-animate" data-end-value={price.toFixed(2)} data-increment="0.01" data-duration="1500">0</span>
 				</Text>
@@ -31,22 +31,29 @@ function RightItem({ itemId, image, title, price, link, checkAnswer }) {
 			<SimpleGrid columns={1}>
 				<Button
 					colSpan={1}
-					variant="primary"
-					onClick={() => checkAnswer("higher")}
+					variant="danger"
+					onClick={() => {
+						setToggleHide(false);
+						checkAnswer("higher")
+						setTimeout(() => {
+							setToggleHide(true)
+						}, [2000]);
+					}}
 				>
 					Higher
 				</Button>
 				<Button
 					colSpan={1}
-					variant="primary"
-					onClick={() => checkAnswer("lower")}
+					variant="danger"
+					onClick={() => {
+						setToggleHide(false);
+						checkAnswer("lower")
+						setTimeout(() => {
+							setToggleHide(true)
+						}, [2000]);
+					}}
 				>
 					Lower
-				</Button>
-				<Button colSpan={1} variant="primary">
-					<Link href={link} isExternal>
-						Details on eBay!
-					</Link>
 				</Button>
 			</SimpleGrid>
 		</VStack>

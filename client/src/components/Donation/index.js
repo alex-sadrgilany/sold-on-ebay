@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
 import {
 	Box,
 	Flex,
@@ -22,17 +21,15 @@ import { QUERY_CHECKOUT } from "../../utils/queries";
 import { ADD_TO_CART, EMPTY_CART } from "../../utils/actions";
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
-
 function Donation() {
 	const [state, dispatch] = useStoreContext();
 	const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 	const [donation, setDonation] = useState(0);
-	const [opacity, setOpacity] = useState("1");
 
 	const format = (val) => "$" + val;
 	const parse = (val) => val.replace(/^\$/, "");
-	const checkoutEl = document.querySelector(".half-opacity");
-	const donationEl = document.querySelector(".full-opacity");
+	const checkoutEl = document.querySelector(".checkout-box");
+	const donationEl = document.querySelector(".donate-box");
 	const checkoutTotal = document.querySelector(".checkout-number");
 
 	useEffect(() => {
@@ -51,11 +48,18 @@ function Donation() {
 
 		localStorage.setItem("donation", donation);
 
-		checkoutEl.classList.remove("half-opacity");
-		checkoutEl.classList.add("full-opacity");
+		if (checkoutEl.classList.contains("half-opacity")) {
+			checkoutEl.classList.remove("half-opacity");
+			checkoutEl.classList.add("full-opacity");
+		}
 
-		donationEl.classList.remove("full-opacity");
-		donationEl.classList.add("half-opacity");
+		if (donationEl.classList.contains("half-opacity")) {
+			donationEl.classList.remove("half-opacity");
+			donationEl.classList.add("full-opacity");
+		} else {
+			donationEl.classList.remove("full-opacity");
+			donationEl.classList.add("half-opacity", "donation-amount-hover");
+		}
 
 		checkoutTotal.innerHTML = "$" + donation;
 	};
@@ -64,7 +68,8 @@ function Donation() {
 		dispatch({
 			type: EMPTY_CART
 		});
-
+		setDonation(0);
+		checkoutTotal.innerHTML = "??";
 		localStorage.removeItem("donation");
 	};
 
@@ -94,7 +99,7 @@ function Donation() {
 						rounded="lg"
 						padding="8"
 						width="full"
-						className="full-opacity"
+						className="full-opacity donate-box"
 					>
 						<Heading size="md">Donate</Heading>
 
@@ -141,7 +146,7 @@ function Donation() {
 						rounded="lg"
 						padding="8"
 						width="full"
-						className="half-opacity"
+						className="half-opacity checkout-box"
 					>
 						<Heading size="md">Donation Summary</Heading>
 
@@ -149,7 +154,11 @@ function Donation() {
 							<Text fontSize="lg" fontWeight="semibold">
 								Total
 							</Text>
-							<Text fontSize="xl" fontWeight="extrabold" className="checkout-number">
+							<Text
+								fontSize="xl"
+								fontWeight="extrabold"
+								className="checkout-number"
+							>
 								??
 							</Text>
 						</Flex>

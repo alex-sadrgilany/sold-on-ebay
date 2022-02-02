@@ -13,12 +13,13 @@ function Score() {
 			padding=".5rem"
 			margin="1rem"
 			position="absolute"
-			top="1rem"
-			left="1%"
-			minWidth="5rem"
+			top="110px"
+			left="46.5%"
+			minWidth="6rem"
+			bgColor={"primary.yellow"}
+			textAlign={"center"}
 		>
-			<Text fontWeight="bold">Score:</Text>
-			<Text fontWeight="bold">{state.score}</Text>
+			<Text fontWeight="bold">Score: {state.score}</Text>
 		</Box>
 	);
 };

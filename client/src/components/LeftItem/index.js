@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
 	Box,
@@ -83,7 +83,7 @@ function LeftItem({ itemId, image, title, price, link }) {
 			</Box>
 
 			<SimpleGrid columns={2}>
-				<Button colSpan={1} variant="primary">
+				<Button colSpan={1} variant="danger">
 					<Link href={link} isExternal>
 						Details on eBay!
 					</Link>
@@ -91,14 +91,14 @@ function LeftItem({ itemId, image, title, price, link }) {
 				{Auth.loggedIn() ? (
 					<Button
 						colSpan={1}
-						variant="primary"
+						variant="danger"
 						onClick={() => handleSaveItem(itemId)}
 					>
 						Save this Item!
 					</Button>
 				) : (
 					<Text colSpan={1}>
-						Signup/Login to Save to your account
+						Signup/Login to Save
 					</Text>
 				)}
 			</SimpleGrid>

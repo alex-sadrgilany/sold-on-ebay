@@ -55,8 +55,6 @@ function PlayGame() {
 	useEffect(redirectHome, []);
 	useEffect(noMoreItems, [currentItemIndex]);
 
-	
-
 	const {
 		itemId: leftItemId,
 		image: leftImage,
@@ -77,9 +75,6 @@ function PlayGame() {
 		navigate("/gameover");
 	};
 	const runAnime = () => {
-		const hiddenEl = document.querySelector(".hide");
-		hiddenEl.classList.remove("hide");
-
 		document.querySelectorAll(".number-animate").forEach((el) => {
 			const endValue = el.getAttribute("data-end-value");
 			const incrementValue = el.getAttribute("data-increment");
@@ -158,28 +153,32 @@ function PlayGame() {
 		}
 	};
 
-	console.log("right", rightPrice)
+	console.log("right", rightPrice);
 	return (
 		<SimpleGrid columns={2} spacing={5}>
-			<Box bg="white" colSpan={1}>
-				<LeftItem
-					itemId={leftItemId}
-					image={leftImage}
-					title={leftTitle}
-					price={leftPrice}
-					link={leftLink}
-				/>
-			</Box>
-			<Box bg="white" colSpan={1}>
-				<RightItem
-					itemId={rightItemId}
-					image={rightImage}
-					title={rightTitle}
-					price={rightPrice}
-					link={rightLink}
-					checkAnswer={checkAnswer}
-				/>
-			</Box>
+			<GridItem colSpan={1}>
+				<Box bg="white">
+					<LeftItem
+						itemId={leftItemId}
+						image={leftImage}
+						title={leftTitle}
+						price={leftPrice}
+						link={leftLink}
+					/>
+				</Box>
+			</GridItem>
+			<GridItem colSpan={1}>
+				<Box bg="white" colSpan={1}>
+					<RightItem
+						itemId={rightItemId}
+						image={rightImage}
+						title={rightTitle}
+						price={rightPrice}
+						link={rightLink}
+						checkAnswer={checkAnswer}
+					/>
+				</Box>
+			</GridItem>
 
 			<Score />
 		</SimpleGrid>
