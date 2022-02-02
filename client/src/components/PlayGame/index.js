@@ -52,8 +52,8 @@ function PlayGame() {
 		}
 	};
 
-	useEffect(redirectHome, []);
-	useEffect(noMoreItems, [currentItemIndex]);
+	useEffect(redirectHome, [leftObj, rightObj]);
+	useEffect(noMoreItems, [currentItemIndex, gameOver, items.length]);
 
 	const {
 		itemId: leftItemId,
