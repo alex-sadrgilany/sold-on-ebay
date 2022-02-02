@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import {
 	Box,
 	Flex,
@@ -19,10 +18,12 @@ import {
 	GridItem,
 	useBreakpointValue
 } from "@chakra-ui/react";
+import Auth from "../../utils/auth";
 import { useStoreContext } from "../../utils/GlobalState";
 import { useLazyQuery } from "@apollo/client";
 import { QUERY_CHECKOUT } from "../../utils/queries";
 import { ADD_TO_CART, EMPTY_CART } from "../../utils/actions";
+import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 function Donation() {
@@ -156,13 +157,21 @@ function Donation() {
 							</Flex>
 						</GridItem>
 						<GridItem colSpan={1}>
-							<Button
+							{Auth.loggedIn() ? (
+								<Button
 								variant="secondary"
 								onClick={checkout}
 								w="full"
 							>
+								
 								Checkout
 							</Button>
+							) : (
+								<Button variant={"secondary"} w="full">
+									<Link href="/login">Login to checkout</Link>
+								</Button>
+							)}
+							
 						</GridItem>
 					</SimpleGrid>
 				</VStack>
